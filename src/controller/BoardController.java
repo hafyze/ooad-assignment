@@ -1,7 +1,7 @@
-package main.controller;
+package controller;
 
-import main.model.BoardModel;
-import main.view.BoardView;
+import model.BoardModel;
+import view.BoardView;
 
 import java.awt.Color;
 

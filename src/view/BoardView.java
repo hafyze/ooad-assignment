@@ -1,6 +1,6 @@
-package main.view;
+package view;
 
-import main.controller.BoardController;
+import controller.BoardController;
 
 import javax.swing.*;
 import java.awt.*;
