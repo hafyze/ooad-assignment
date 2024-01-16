@@ -3,6 +3,7 @@ package main;
 import javax.swing.*;
 import java.awt.*;
 
+//CAN EDIT THE WHOLE FILE
 public class MainGUI extends JFrame {
     public MainGUI() {
         setTitle("Tilapia Chess");
