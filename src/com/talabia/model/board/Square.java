@@ -12,6 +12,12 @@ public class Square {
         this.isOccupied = false;
     }
 
+    public Square(Location location, AbstractPiece piece){
+        this.location = location;
+        this.isOccupied = true;
+        this.piece = piece;
+    }
+
     public Location getLocation() {
         return location;
     }
