@@ -2,9 +2,9 @@ package com.talabia.controller;
 
 import com.talabia.model.board.Board;
 import com.talabia.view.GameView;
+import com.talabia.view.SquareView;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 public class GameController {
     private GameView theView;
@@ -14,16 +14,23 @@ public class GameController {
         this.theView = theView;
         this.theModel = theModel;
 
-//        theView.getMenuView().addNewGameListener(new NewGameListener());
+        theView.getBoardView().addSquareListener(new SquareViewListener());
     }
 
-//    private class NewGameListener implements ActionListener {
-//        @Override
-//        public void actionPerformed(ActionEvent e) {
-//            theModel.newGame();
-//            theView.getBoardView().setNewBoardView(theModel);
-//        }
-//    }
+    private class SquareViewListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            SquareView clickedSquare = (SquareView) e.getSource();
+            int row = clickedSquare.getRow();
+            int col = clickedSquare.getCol();
+
+            System.out.println(row + " " + col);
+            System.out.println(theModel.getBoardSquares()[row][col].getPiece()
+                    .getPossibleMoves(theModel.getBoardSquares()[row][col],theModel.getBoardSquares()));
+            theView.getBoardView().showCandidateSquareView(theModel.getBoardSquares()[row][col].getPiece()
+                    .getPossibleMoves(theModel.getBoardSquares()[row][col],theModel.getBoardSquares()));
+        }
+    }
 
 
 }

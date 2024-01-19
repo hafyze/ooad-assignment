@@ -1,15 +1,17 @@
 package com.talabia.model.piece;
 
-import java.util.List;
+import com.talabia.model.board.Square;
+
+import java.util.ArrayList;
 
 public abstract class AbstractPiece {
     protected String pieceName;
     protected PieceColor pieceColor;
     protected String pieceImageName;
 
-    public AbstractPiece(PieceColor pieceColor){
+    public AbstractPiece(String pieceName, PieceColor pieceColor){
         this.pieceColor = pieceColor;
-        this.pieceName = "";
+        this.pieceName = pieceName;
     }
 
     public String getPieceName() {
@@ -31,6 +33,8 @@ public abstract class AbstractPiece {
     public String getPieceImageName() {
         return pieceImageName;
     }
+
+    public abstract ArrayList<Square> getPossibleMoves(Square currentSquare, Square[][] squares);
 
     @Override
     public String toString() {

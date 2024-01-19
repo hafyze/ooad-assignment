@@ -3,23 +3,39 @@ package com.talabia.model.board;
 import com.talabia.model.piece.AbstractPiece;
 
 public class Square {
-    private final Location location;
+    private int row;
+    private int column;
+
     private boolean isOccupied;
     private AbstractPiece piece;
 
-    public Square(Location location){
-        this.location = location;
-        this.isOccupied = false;
+    public Square(int row, int column){
+        this.row = row;
+        this.column = column;
+        this.piece = null;
     }
 
-    public Square(Location location, AbstractPiece piece){
-        this.location = location;
+    public Square(int row, int column, AbstractPiece piece){
+        this.row = row;
+        this.column = column;
         this.isOccupied = true;
         this.piece = piece;
     }
 
-    public Location getLocation() {
-        return location;
+    public int getRow() {
+        return row;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public int getColumn() {
+        return column;
+    }
+
+    public void setColumn(int column) {
+        this.column = column;
     }
 
     public boolean isOccupied() {
@@ -39,10 +55,12 @@ public class Square {
         this.isOccupied = true;
     }
 
+
     @Override
     public String toString() {
         return "Square{" +
-                "location=" + location +
+                "row=" + row +
+                ", column=" + column +
                 ", isOccupied=" + isOccupied +
                 ", piece=" + piece +
                 '}';
