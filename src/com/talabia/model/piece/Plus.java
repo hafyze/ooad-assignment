@@ -20,14 +20,38 @@ public class Plus extends AbstractPiece{
         int currentRow = currentSquare.getRow();
         int currentCol = currentSquare.getColumn();
 
-
-        //horizontal
-        for(int i = 0; i < board.getBoardRow(); i++){
-            currentRow = currentRow - 1;
-            if(currentRow >= 0) {
-                possibleMoves.add(squares[currentRow][currentCol]);
+        // Move up
+        for (int i = 1; i <= board.getBoardRow(); i++) {
+            int newRow = currentRow - i;
+            if (newRow >= 0) {
+                possibleMoves.add(squares[newRow][currentCol]);
             }
         }
+
+        // Move down
+        for (int i = 1; i <= board.getBoardRow(); i++) {
+            int newRow = currentRow + i;
+            if (newRow < squares.length) {
+                possibleMoves.add(squares[newRow][currentCol]);
+            }
+        }
+
+        // Move left
+        for (int i = 1; i <= board.getBoardCol(); i++) {
+            int newCol = currentCol - i;
+            if (newCol >= 0) {
+                possibleMoves.add(squares[currentRow][newCol]);
+            }
+        }
+
+        // Move right
+        for (int i = 1; i <= board.getBoardCol(); i++) {
+            int newCol = currentCol + i;
+            if (newCol < squares[0].length) {
+                possibleMoves.add(squares[currentRow][newCol]);
+            }
+        }
+
         this.possibleMoves = possibleMoves;
     }
 
