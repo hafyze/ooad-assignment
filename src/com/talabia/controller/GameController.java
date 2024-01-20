@@ -13,6 +13,7 @@ public class GameController {
     private GameView theView;
     private Board theModel;
     private ArrayList<Square> possibleMoves;
+    private Square currentSquare;
     private AbstractPiece currentPiece;
 
     public GameController(GameView theView, Board theModel){
@@ -29,36 +30,25 @@ public class GameController {
             int row = clickedSquare.getRow();
             int col = clickedSquare.getCol();
 
-            System.out.println(row + " " + col);
-            if(theModel.getBoardSquares()[row][col].isOccupied() != false){
-                currentPiece = theModel.getBoardSquares()[row][col].getPiece();
-                currentPiece.setPossibleMoves(theModel.getBoardSquares()[row][col],theModel.getBoardSquares());
+//            System.out.println(theModel.getCurrentBottomBoardColor());
+            Square chosenSquare = theModel.getBoardSquares()[row][col];
+
+            if(chosenSquare.isOccupied() != false &&
+                    chosenSquare.getPiece().getPieceColor() == theModel.getCurrentBottomBoardColor()){
+                currentSquare = chosenSquare;
+                currentPiece = currentSquare.getPiece();
+                currentPiece.setPossibleMoves(currentSquare,theModel.getBoardSquares());
                 possibleMoves = currentPiece.getPossibleMoves();
-
-                theView.getBoardView().showCandidateSquareView(possibleMoves);
-
-                theView.getBoardView().addMovePieceListener(new MovePieceListener(row, col));
+                theView.getBoardView().updateView(possibleMoves);
             }
-        }
-    }
 
-    private class MovePieceListener implements ActionListener{
-        private int currentRow;
-        private int currentCol;
-
-        MovePieceListener(int currentRow, int currentCol){
-            this.currentRow = currentRow;
-            this.currentCol = currentCol;
-            System.out.println(currentPiece);
-        }
-        @Override
-        public void actionPerformed(ActionEvent e){
-            SquareView clickedSquare = (SquareView) e.getSource();
-            int finalRow = clickedSquare.getRow();
-            int finalCol = clickedSquare.getCol();
-
-            theModel.getBoardSquares()[currentRow][currentCol].setPiece(null, false);
-            theModel.getBoardSquares()[finalRow][finalCol].setPiece(currentPiece, true);
+            if(chosenSquare.isOccupied() == false ||
+                    chosenSquare.getPiece().getPieceColor() != theModel.getCurrentBottomBoardColor()){
+                theModel.getBoardSquares()[currentSquare.getRow()][currentSquare.getColumn()].setPiece(null, false);
+                theModel.getBoardSquares()[row][col].setPiece(currentPiece, true);
+                theModel.switchBottomBoardColor();
+                theView.getBoardView().updateView();
+            }
         }
     }
 }

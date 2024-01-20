@@ -2,8 +2,6 @@ package com.talabia.model.board;
 
 import com.talabia.model.piece.*;
 
-import java.util.HashMap;
-import java.util.Map;
 
 public class Board {
     private static final int BOARD_ROW = 6;
@@ -11,9 +9,12 @@ public class Board {
 
     private final Square[][] boardSquares;
 
+    private PieceColor currentBottomBoardColor;
+
     public Board(){
         boardSquares = new Square[BOARD_ROW][BOARD_COL];
         resetBoard();
+        currentBottomBoardColor = PieceColor.LIGHT;
     }
 
     public int getBoardRow(){
@@ -51,9 +52,21 @@ public class Board {
         }
         boardSquares[4][2] = new Square(4,2, new Point(PieceColor.LIGHT));
         boardSquares[4][3] = new Square(4,3, new Point(PieceColor.LIGHT));
+        boardSquares[4][1] = new Square(4,1, new Point(PieceColor.DARK));
+        boardSquares[2][2] = new Square(2,2, new Point(PieceColor.DARK));
+
+
     }
 
     public Square[][] getBoardSquares() {
         return boardSquares;
+    }
+
+    public PieceColor getCurrentBottomBoardColor() {
+        return currentBottomBoardColor;
+    }
+
+    public void switchBottomBoardColor(){
+        currentBottomBoardColor = (currentBottomBoardColor == PieceColor.LIGHT) ? PieceColor.DARK : PieceColor.LIGHT;
     }
 }
