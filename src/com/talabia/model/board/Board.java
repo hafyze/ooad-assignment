@@ -51,7 +51,6 @@ public class Board {
         }
         boardSquares[4][2] = new Square(4,2, new Point(PieceColor.LIGHT));
         boardSquares[4][3] = new Square(4,3, new Point(PieceColor.LIGHT));
-
     }
 
     public Square[][] getBoardSquares() {

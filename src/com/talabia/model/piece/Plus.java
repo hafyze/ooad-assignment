@@ -12,7 +12,12 @@ public class Plus extends AbstractPiece{
     }
 
     @Override
-    public ArrayList<Square> getPossibleMoves(Square currentSquare, Square[][] squares) {
+    public void setPossibleMoves(Square currentSquare, Square[][] squares) {
+
+    }
+
+    @Override
+    public ArrayList<Square> getPossibleMoves() {
         return null;
     }
 }

@@ -12,7 +12,7 @@ public class Point extends AbstractPiece {
     }
 
     @Override
-    public ArrayList<Square> getPossibleMoves(Square currentSquare, Square[][] squares) {
+    public void setPossibleMoves(Square currentSquare, Square[][] squares) {
         ArrayList<Square> possibleMoves = new ArrayList<>();
 
         int currentRow = currentSquare.getRow();
@@ -24,8 +24,11 @@ public class Point extends AbstractPiece {
                 possibleMoves.add(squares[currentRow][currentCol]);
             }
         }
+        this.possibleMoves = possibleMoves;
+    }
 
-        return possibleMoves;
+    public ArrayList<Square> getPossibleMoves(){
+        return this.possibleMoves;
     }
 
 }

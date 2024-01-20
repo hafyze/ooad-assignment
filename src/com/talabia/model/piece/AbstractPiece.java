@@ -8,6 +8,7 @@ public abstract class AbstractPiece {
     protected String pieceName;
     protected PieceColor pieceColor;
     protected String pieceImageName;
+    protected ArrayList<Square> possibleMoves;
 
     public AbstractPiece(String pieceName, PieceColor pieceColor){
         this.pieceColor = pieceColor;
@@ -34,7 +35,8 @@ public abstract class AbstractPiece {
         return pieceImageName;
     }
 
-    public abstract ArrayList<Square> getPossibleMoves(Square currentSquare, Square[][] squares);
+    public abstract void setPossibleMoves(Square currentSquare, Square[][] squares);
+    public abstract ArrayList<Square> getPossibleMoves();
 
     @Override
     public String toString() {

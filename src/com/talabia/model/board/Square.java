@@ -12,6 +12,7 @@ public class Square {
     public Square(int row, int column){
         this.row = row;
         this.column = column;
+        this.isOccupied = false;
         this.piece = null;
     }
 
@@ -50,11 +51,10 @@ public class Square {
         return piece;
     }
 
-    public void setPiece(AbstractPiece piece) {
+    public void setPiece(AbstractPiece piece, boolean isOccupied) {
         this.piece = piece;
-        this.isOccupied = true;
+        this.isOccupied = isOccupied;
     }
-
 
     @Override
     public String toString() {
