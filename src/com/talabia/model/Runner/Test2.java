@@ -1,18 +1,16 @@
 package com.talabia.model.Runner;
 
 import com.talabia.model.board.Board;
-import com.talabia.model.board.Location;
-import com.talabia.model.board.Square;
-import com.talabia.model.piece.PieceColor;
-import com.talabia.model.piece.Point;
 
 public class Test2 {
     public static void main(String[] args){
         Board board = new Board();
-        Square square = new Square(new Location(2,3));
-        square.setPiece(new Point(PieceColor.LIGHT));
-        board.getLocationSquareMap().put(new Location(2,3), square);
+//        Square[][] square = new Square[2][2];
+//        square[0][0] = new Square(new Location(0,0), new Point(PieceColor.DARK));
+//        square[0][1] = new Square(new Location(0,1), new Point(PieceColor.LIGHT));
+//        square[1][0] = new Square(new Location(1,0));
+//        square[1][1] = new Square(new Location(1,1), new Point(PieceColor.DARK));
+//        System.out.println(board.getBoardSquares()[4][2].getPiece().getPossibleMoves(board.getBoardSquares()[4][2], board.getBoardSquares()));
 
-        System.out.println(board.getLocationSquareMap().get(new Location(2,3)));
     }
 }

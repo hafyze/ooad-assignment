@@ -30,4 +30,3 @@ public class MenuView extends JPanel {
         loadBtn.addActionListener(listenerForLoadBtn);
     }
 }
-
