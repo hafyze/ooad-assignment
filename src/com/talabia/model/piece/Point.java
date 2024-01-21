@@ -11,6 +11,7 @@ public class Point extends AbstractPiece {
         this.pieceImageName = pieceColor.toString() + "_" + pieceName;
     }
 
+    //Comments
     @Override
     public void setPossibleMoves(Square currentSquare, Square[][] squares) {
         ArrayList<Square> possibleMoves = new ArrayList<>();
