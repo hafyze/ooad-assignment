@@ -80,6 +80,8 @@ public class BoardView extends JPanel {
         showPossibleMoves(possibleMoves);
     }
 
+//    public void flip
+
     private ImageIcon loadImage(String path){
         String relativePath = "/com/talabia/picture/" + path + ".png";
         Image image = new ImageIcon(this.getClass().getResource(relativePath)).getImage();

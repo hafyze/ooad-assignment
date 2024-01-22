@@ -3,6 +3,7 @@ package com.talabia.controller;
 import com.talabia.model.board.Board;
 import com.talabia.model.board.Square;
 import com.talabia.model.piece.AbstractPiece;
+import com.talabia.model.piece.PieceColor;
 import com.talabia.view.GameView;
 import com.talabia.view.SquareView;
 
@@ -30,7 +31,7 @@ public class GameController {
             int row = clickedSquare.getRow();
             int col = clickedSquare.getCol();
 
-//            System.out.println(theModel.getCurrentBottomBoardColor());
+//            System.out.println(theModel.getBoardSquares()[row][col]);
             Square chosenSquare = theModel.getBoardSquares()[row][col];
 
             if(chosenSquare.isOccupied() != false &&
@@ -42,10 +43,18 @@ public class GameController {
                 theView.getBoardView().updateView(possibleMoves);
             }
 
-            if(chosenSquare.isOccupied() == false ||
-                    chosenSquare.getPiece().getPieceColor() != theModel.getCurrentBottomBoardColor()){
-                theModel.getBoardSquares()[currentSquare.getRow()][currentSquare.getColumn()].setPiece(null, false);
-                theModel.getBoardSquares()[row][col].setPiece(currentPiece, true);
+            if (chosenSquare.isOccupied() == false ||
+                    chosenSquare.getPiece().getPieceColor() != theModel.getCurrentBottomBoardColor()) {
+                if(theModel.getCurrentBottomBoardColor() == PieceColor.LIGHT){
+                    theModel.getBoardSquares()[currentSquare.getRow()][currentSquare.getColumn()].setPiece(null, false);
+                    theModel.getBoardSquares()[row][col].setPiece(currentPiece, true);
+                }
+                else{
+                    System.out.println(currentSquare.getRow() + " " +currentSquare.getColumn());
+                    System.out.println(row + " " + col);
+                    theModel.getBoardSquares()[theModel.getBoardRow() - 1 - currentSquare.getRow()][theModel.getBoardCol() - 1 - currentSquare.getColumn()].setPiece(null, false);
+                    theModel.getBoardSquares()[row][col].setPiece(currentPiece, true);
+                }
                 theModel.switchBottomBoardColor();
                 theView.getBoardView().updateView();
             }
