@@ -1,7 +1,12 @@
 package com.talabia.model.board;
 
-import com.talabia.model.piece.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
+import com.talabia.model.piece.*;
 
 public class Board {
     private static final int BOARD_ROW = 6;
@@ -59,6 +64,54 @@ public class Board {
         boardSquares[5][6] = new Square(5,6, new Sun(PieceColor.LIGHT));
 
     }
+
+
+    public void resetGame() {
+        for (int row = 0; row < boardSquares.length; row++) {
+            for (int col = 0; col < boardSquares[row].length; col++) {
+                boardSquares[row][col] = new Square();
+            }
+        }
+    }
+
+
+    public void saveGame() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("gameState.txt"))) {
+            for (int row = 0; row < boardSquares.length; row++) {
+                for (int col = 0; col < boardSquares[row].length; col++) {
+                    if (boardSquares[row][col].isOccupied()) {
+                        String pieceName = boardSquares[row][col].getPiece().getPieceName();
+                        PieceColor color = boardSquares[row][col].getPiece().getPieceColor();
+                        writer.write(pieceName + " " + color + " at position (" + row + "," + col + ")\n");
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void loadGame(String filePath) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+
+                String[] parts = line.split(" at position \\(");
+                String[] pieceInfo = parts[0].split(" "); 
+                String pieceName = pieceInfo[0];
+                PieceColor color = PieceColor.valueOf(pieceInfo[1]); 
+    
+                String[] position = parts[1].split(",|\\)"); 
+                int row = Integer.parseInt(position[0].trim());
+                int col = Integer.parseInt(position[1].trim());
+    
+                boardSquares[row][col].placeNewPiece(pieceName, color);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     public Square[][] getBoardSquares() {
         return currentBottomBoardColor == PieceColor.LIGHT ? boardSquares : flipBoardSquares;

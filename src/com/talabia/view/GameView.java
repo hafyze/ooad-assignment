@@ -15,7 +15,7 @@ public class GameView extends JFrame {
         setLayout(new BorderLayout());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        menuView = new MenuView();
+        menuView = new MenuView(board);
         boardView = new BoardView(board);
 
         add(menuView, BorderLayout.NORTH);
