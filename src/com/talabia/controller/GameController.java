@@ -45,16 +45,18 @@ public class GameController {
 
             if (chosenSquare.isOccupied() == false ||
                     chosenSquare.getPiece().getPieceColor() != theModel.getCurrentBottomBoardColor()) {
-                if(theModel.getCurrentBottomBoardColor() == PieceColor.LIGHT){
-                    theModel.getBoardSquares()[currentSquare.getRow()][currentSquare.getColumn()].setPiece(null, false);
-                    theModel.getBoardSquares()[row][col].setPiece(currentPiece, true);
-                }
-                else{
-                    System.out.println(currentSquare.getRow() + " " +currentSquare.getColumn());
-                    System.out.println(row + " " + col);
-                    theModel.getBoardSquares()[theModel.getBoardRow() - 1 - currentSquare.getRow()][theModel.getBoardCol() - 1 - currentSquare.getColumn()].setPiece(null, false);
-                    theModel.getBoardSquares()[row][col].setPiece(currentPiece, true);
-                }
+//                if(theModel.getCurrentBottomBoardColor() == PieceColor.LIGHT){
+//                    theModel.getBoardSquares()[currentSquare.getRow()][currentSquare.getColumn()].setPiece(null, false);
+//                    theModel.getBoardSquares()[row][col].setPiece(currentPiece, true);
+//                }
+//                else{
+//                    System.out.println(currentSquare.getRow() + " " +currentSquare.getColumn());
+//                    System.out.println(row + " " + col);
+//                    theModel.getBoardSquares()[theModel.getBoardRow() - 1 - currentSquare.getRow()][theModel.getBoardCol() - 1 - currentSquare.getColumn()].setPiece(null, false);
+//                    theModel.getBoardSquares()[row][col].setPiece(currentPiece, true);
+//                }
+                theModel.getBoardSquares()[currentSquare.getRow()][currentSquare.getColumn()].setPiece(null, false);
+                theModel.getBoardSquares()[row][col].setPiece(currentPiece, true);
                 theModel.switchBottomBoardColor();
                 theView.getBoardView().updateView();
             }
