@@ -23,21 +23,23 @@ public class Plus extends AbstractPiece{
         int currentRow = currentSquare.getRow();
         int currentCol = currentSquare.getColumn();
 
-        // Move forward (upward)
+        // Move up
         boolean canMove = true;
         for (int i = 1; i <= boardRow && canMove; i++) {
             int newRow = currentRow - i;
             if (newRow >= 0) {
+                //System.out.println("Move up");
                 possibleMoves.add(squares[newRow][currentCol]);
                 canMove = !squares[newRow][currentCol].isOccupied();
             }
         }
 
-        // Move backward (downward)
+        // Move down
         canMove = true;
         for (int i = 1; i <= boardRow && canMove; i++) {
             int newRow = currentRow + i;
             if (newRow < boardRow) {
+                //System.out.println("Move down");
                 possibleMoves.add(squares[newRow][currentCol]);
                 canMove = !squares[newRow][currentCol].isOccupied();
             }
@@ -49,15 +51,16 @@ public class Plus extends AbstractPiece{
             int newCol = currentCol - i;
             if (newCol >= 0) {
                 possibleMoves.add(squares[currentRow][newCol]);
+                //System.out.println("Move left");
                 canMove = !squares[currentRow][newCol].isOccupied();
             }
         }
-
         canMove = true;
         for (int i = 1; i <= boardCol && canMove; i++) {
             int newCol = currentCol + i;
             if (newCol < boardCol) {
                 possibleMoves.add(squares[currentRow][newCol]);
+                //System.out.println("Move right");
                 canMove = !squares[currentRow][newCol].isOccupied();
             }
         }
