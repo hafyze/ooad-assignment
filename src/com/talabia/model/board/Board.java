@@ -8,13 +8,13 @@ public class Board {
     private static final int BOARD_COL = 7;
 
     private final Square[][] boardSquares;
-    private final Square[][] flipBoardSquares;
+//    private final Square[][] flipBoardSquares;
 
     private PieceColor currentBottomBoardColor;
 
     public Board(){
         boardSquares = new Square[BOARD_ROW][BOARD_COL];
-        flipBoardSquares = new Square[BOARD_ROW][BOARD_COL];
+//        flipBoardSquares = new Square[BOARD_ROW][BOARD_COL];
 
         resetBoard();
         currentBottomBoardColor = PieceColor.LIGHT;
@@ -54,14 +54,14 @@ public class Board {
             }
         }
 
-
         boardSquares[2][5] = new Square(2,5, new Sun(PieceColor.DARK));
         boardSquares[5][6] = new Square(5,6, new Sun(PieceColor.LIGHT));
-
+        boardSquares[4][6] = new Square(4,6, new Sun(PieceColor.LIGHT));
     }
 
     public Square[][] getBoardSquares() {
-        return currentBottomBoardColor == PieceColor.LIGHT ? boardSquares : flipBoardSquares;
+        return boardSquares;
+//        return currentBottomBoardColor == PieceColor.LIGHT ? boardSquares : flipBoardSquares;
     }
 
     public PieceColor getCurrentBottomBoardColor() {
@@ -70,16 +70,16 @@ public class Board {
 
     public void switchBottomBoardColor(){
         currentBottomBoardColor = (currentBottomBoardColor == PieceColor.LIGHT) ? PieceColor.DARK : PieceColor.LIGHT;
-        setFlipBoardSquares();
+//        setFlipBoardSquares();
     }
 
-    public void setFlipBoardSquares(){
-        for(int row = 0; row < BOARD_ROW; row ++){
-            for(int col = 0; col < BOARD_COL; col++){
-                flipBoardSquares[row][col] = boardSquares[BOARD_ROW-1-row][BOARD_COL-1-col];
-            }
-        }
-    }
+//    public void setFlipBoardSquares(){
+//        for(int row = 0; row < BOARD_ROW; row ++){
+//            for(int col = 0; col < BOARD_COL; col++){
+//                flipBoardSquares[row][col] = boardSquares[BOARD_ROW-1-row][BOARD_COL-1-col];
+//            }
+//        }
+//    }
 
 //    public void changeState(){
 //        Square tempSquare;
