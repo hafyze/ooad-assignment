@@ -1,13 +1,10 @@
 package com.talabia.model.board;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+
 
 import com.talabia.model.piece.*;
-
+import com.talabia.view.BoardView;
 public class Board {
     private static final int BOARD_ROW = 6;
     private static final int BOARD_COL = 7;
@@ -66,10 +63,10 @@ public class Board {
     }
 
 
-    public void resetGame() {
+    public void clearGame() {
         for (int row = 0; row < boardSquares.length; row++) {
             for (int col = 0; col < boardSquares[row].length; col++) {
-                boardSquares[row][col] = new Square();
+                boardSquares[row][col].setPiece(null,false);
             }
         }
     }
@@ -91,6 +88,7 @@ public class Board {
         }
     }
     public void loadGame(String filePath) {
+        clearGame();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
