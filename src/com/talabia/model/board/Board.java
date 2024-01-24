@@ -54,9 +54,8 @@ public class Board {
             }
         }
 
-        boardSquares[2][5] = new Square(2,5, new Sun(PieceColor.DARK));
-        boardSquares[5][6] = new Square(5,6, new Sun(PieceColor.LIGHT));
-        boardSquares[4][6] = new Square(4,6, new Sun(PieceColor.LIGHT));
+        boardSquares[2][5] = new Square(2,5, new Plus(PieceColor.DARK));
+        boardSquares[4][5] = new Square(4,5, new Time(PieceColor.LIGHT));
     }
 
     public Square[][] getBoardSquares() {
