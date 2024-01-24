@@ -24,33 +24,41 @@ public class Plus extends AbstractPiece{
         int currentCol = currentSquare.getColumn();
 
         // Move forward (upward)
-        for (int i = 1; i <= boardRow; i++) {
+        boolean canMove = true;
+        for (int i = 1; i <= boardRow && canMove; i++) {
             int newRow = currentRow - i;
             if (newRow >= 0) {
                 possibleMoves.add(squares[newRow][currentCol]);
+                canMove = !squares[newRow][currentCol].isOccupied();
             }
         }
 
         // Move backward (downward)
-        for (int i = 1; i <= boardRow; i++) {
+        canMove = true;
+        for (int i = 1; i <= boardRow && canMove; i++) {
             int newRow = currentRow + i;
-            if (newRow < squares.length) {
+            if (newRow < boardRow) {
                 possibleMoves.add(squares[newRow][currentCol]);
+                canMove = !squares[newRow][currentCol].isOccupied();
             }
         }
 
         // Move horizontally
-        for (int i = 1; i <= boardCol; i++) {
+        canMove = true;
+        for (int i = 1; i <= boardCol && canMove; i++) {
             int newCol = currentCol - i;
             if (newCol >= 0) {
                 possibleMoves.add(squares[currentRow][newCol]);
+                canMove = !squares[currentRow][newCol].isOccupied();
             }
         }
 
-        for (int i = 1; i <= boardCol; i++) {
+        canMove = true;
+        for (int i = 1; i <= boardCol && canMove; i++) {
             int newCol = currentCol + i;
-            if (newCol < squares[0].length) {
+            if (newCol < boardCol) {
                 possibleMoves.add(squares[currentRow][newCol]);
+                canMove = !squares[currentRow][newCol].isOccupied();
             }
         }
         this.possibleMoves = possibleMoves;

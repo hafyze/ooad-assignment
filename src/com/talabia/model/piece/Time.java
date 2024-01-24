@@ -15,22 +15,30 @@ public class Time extends AbstractPiece {
     public void setPossibleMoves(Square currentSquare, Square[][] squares) {
         ArrayList<Square> possibleMoves = new ArrayList<>();
 
-        int currentRow = currentSquare.getRow();
-        int currentCol = currentSquare.getColumn();
+        int numRow = currentSquare.getRow();
+        int numCol = currentSquare.getColumn();
 
         // Check diagonal movements
         for (int rowDirection : new int[]{-1, 1}) {
             for (int colDirection : new int[]{-1, 1}) {
-                int row = currentRow + rowDirection;
-                int col = currentCol + colDirection;
+                int row = numRow + rowDirection;
+                //Logging
+//                System.out.println("RowDirection: "+rowDirection);
+//                System.out.println("numRow: "+numRow);
+//                System.out.println("Row: "+row);
+                int col = numCol + colDirection;
 
                 while (row >= 0 && row < squares.length && col >= 0 && col < squares[0].length) {
                     Square square = squares[row][col];
                     possibleMoves.add(square);
 
-                    // Move to the next square diagonally
+                    //Updates to next square
                     row += rowDirection;
                     col += colDirection;
+
+                    if (square.isOccupied()){
+                        break;
+                    }
                 }
             }
         }
