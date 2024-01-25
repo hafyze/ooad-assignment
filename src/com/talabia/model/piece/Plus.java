@@ -47,10 +47,16 @@ public class Plus extends AbstractPiece{
             int newCol = currentCol + i * colDirection;
 
             if (newRow >= 0 && newRow < squares.length && newCol >= 0 && newCol < squares[0].length) {
-                possibleMoves.add(squares[newRow][newCol]);
-                canMove = !squares[newRow][newCol].isOccupied();
-            } else {
-                break;
+                Square targetSquare = squares[newRow][newCol];
+
+                // Check if square is occupied by the same color
+                if (!targetSquare.isOccupied() || targetSquare.getPiece().getPieceColor() != getPieceColor()) {
+                    possibleMoves.add(targetSquare);
+                    canMove = !targetSquare.isOccupied();
+                } else {
+                    // Break loop if target square is occupied by the same color
+                    break;
+                }
             }
         }
     }

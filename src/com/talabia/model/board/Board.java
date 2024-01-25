@@ -55,6 +55,7 @@ public class Board {
         }
 
         boardSquares[2][5] = new Square(2,5, new Plus(PieceColor.DARK));
+        boardSquares[5][5] = new Square(5,5, new Plus(PieceColor.LIGHT));
         boardSquares[4][5] = new Square(4,5, new Time(PieceColor.LIGHT));
     }
 
