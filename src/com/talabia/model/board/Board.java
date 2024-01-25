@@ -57,6 +57,8 @@ public class Board {
 
         boardSquares[2][5] = new Square(2,5, new Point(PieceColor.DARK));
         boardSquares[5][6] = new Square(5,6, new Point(PieceColor.LIGHT));
+        boardSquares[5][1] = new Square(5,1, new Hour(PieceColor.DARK));
+        boardSquares[1][4] = new Square(1,4, new Hour(PieceColor.LIGHT));
 
     }
 
