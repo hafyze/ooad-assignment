@@ -10,13 +10,13 @@ public class Board {
     private static final int BOARD_COL = 7;
 
     private final Square[][] boardSquares;
-    private final Square[][] flipBoardSquares;
+    //private final Square[][] flipBoardSquares;
 
     private PieceColor currentBottomBoardColor;
 
     public Board(){
         boardSquares = new Square[BOARD_ROW][BOARD_COL];
-        flipBoardSquares = new Square[BOARD_ROW][BOARD_COL];
+        //flipBoardSquares = new Square[BOARD_ROW][BOARD_COL];
 
         resetBoard();
         currentBottomBoardColor = PieceColor.LIGHT;
@@ -62,7 +62,6 @@ public class Board {
 
     }
 
-
     public void clearGame() {
         for (int row = 0; row < boardSquares.length; row++) {
             for (int col = 0; col < boardSquares[row].length; col++) {
@@ -71,6 +70,48 @@ public class Board {
         }
     }
 
+    public PieceColor findWinner() {
+        // Check if the Light Sun piece is present on the board
+        boolean lightSunPresent = false;
+        for (int row = 0; row < BOARD_ROW; row++) {
+            for (int col = 0; col < BOARD_COL; col++) {
+                if (getBoardSquares()[row][col].getPiece() != null &&
+                        getBoardSquares()[row][col].getPiece().getPieceName().equals("Sun") &&
+                        getBoardSquares()[row][col].getPiece().getPieceColor() == PieceColor.LIGHT) {
+                    lightSunPresent = true;
+                    break;
+                }
+            }
+            if (lightSunPresent) {
+                break;
+            }
+        }
+    
+        // Check if the Dark Sun piece is present on the board
+        boolean darkSunPresent = false;
+        for (int row = 0; row < BOARD_ROW; row++) {
+            for (int col = 0; col < BOARD_COL; col++) {
+                if (getBoardSquares()[row][col].getPiece() != null &&
+                        getBoardSquares()[row][col].getPiece().getPieceName().equals("Sun") &&
+                        getBoardSquares()[row][col].getPiece().getPieceColor() == PieceColor.DARK) {
+                    darkSunPresent = true;
+                    break;
+                }
+            }
+            if (darkSunPresent) {
+                break;
+            }
+        }
+    
+        // Determine the winner based on the presence of Sun pieces
+        if (!lightSunPresent && darkSunPresent) {
+            return PieceColor.DARK;
+        } else if (lightSunPresent && !darkSunPresent) {
+            return PieceColor.LIGHT;
+        } else {
+            return null;
+        }
+    }
 
     public void saveGame() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("gameState.txt"))) {
@@ -112,7 +153,8 @@ public class Board {
 
 
     public Square[][] getBoardSquares() {
-        return currentBottomBoardColor == PieceColor.LIGHT ? boardSquares : flipBoardSquares;
+//        return currentBottomBoardColor == PieceColor.LIGHT ? boardSquares : flipBoardSquares;
+        return boardSquares;
     }
 
     public PieceColor getCurrentBottomBoardColor() {
@@ -121,16 +163,16 @@ public class Board {
 
     public void switchBottomBoardColor(){
         currentBottomBoardColor = (currentBottomBoardColor == PieceColor.LIGHT) ? PieceColor.DARK : PieceColor.LIGHT;
-        setFlipBoardSquares();
+//        setFlipBoardSquares();
     }
 
-    public void setFlipBoardSquares(){
-        for(int row = 0; row < BOARD_ROW; row ++){
-            for(int col = 0; col < BOARD_COL; col++){
-                flipBoardSquares[row][col] = boardSquares[BOARD_ROW-1-row][BOARD_COL-1-col];
-            }
-        }
-    }
+//    public void setFlipBoardSquares(){
+//        for(int row = 0; row < BOARD_ROW; row ++){
+//            for(int col = 0; col < BOARD_COL; col++){
+//                flipBoardSquares[row][col] = boardSquares[BOARD_ROW-1-row][BOARD_COL-1-col];
+//            }
+//        }
+//    }
 
 //    public void changeState(){
 //        Square tempSquare;

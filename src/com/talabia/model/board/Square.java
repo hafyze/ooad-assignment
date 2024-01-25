@@ -23,6 +23,8 @@ public class Square {
         this.piece = null;
     }
 
+
+
     public void placeNewPiece(String pieceName, PieceColor color) {
         this.piece = createPiece(pieceName, color);
         this.isOccupied = true;
@@ -31,15 +33,15 @@ public class Square {
     private AbstractPiece createPiece(String pieceName, PieceColor color) {
         switch (pieceName) {
             case "Hour":
-            return new Hour(color);
-        case "Plus":
-            return new Plus(color);
-        case "Point":
-            return new Point(color);
-        case "Sun":
-            return new Sun(color);
-        case "Time":
-            return new Time(color);
+                return new Hour(color);
+            case "Plus":
+                return new Plus(color);
+            case "Point":
+                return new Point(color);
+            case "Sun":
+                return new Sun(color);
+            case "Time":
+                return new Time(color);
             default:
                 throw new IllegalArgumentException("Invalid piece name: " + pieceName);
         }
@@ -52,17 +54,17 @@ public class Square {
         this.piece = piece;
     }
 
-    // public int getRow() {
-    //     return row;
-    // }
+    public int getRow() {
+        return row;
+    }
 
-    // public void setRow(int row) {
-    //     this.row = row;
-    // }
+    public void setRow(int row) {
+        this.row = row;
+    }
 
-    // public int getColumn() {
-    //     return column;
-    // }
+    public int getColumn() {
+        return column;
+    }
 
     public void setColumn(int column) {
         this.column = column;
