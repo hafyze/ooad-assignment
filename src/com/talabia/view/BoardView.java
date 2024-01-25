@@ -54,6 +54,7 @@ public class BoardView extends JPanel {
     }
 
     public void updateView(){
+        board.incrementTurnCounter();
         for(int row = 0; row < board.getBoardRow(); row++){
             for(int col = 0; col < board.getBoardCol(); col++){
                 squares[row][col].setBackground(new Color(255, 255, 255));
@@ -78,6 +79,7 @@ public class BoardView extends JPanel {
     public void updateView(ArrayList<Square> possibleMoves){
         updateView();
         showPossibleMoves(possibleMoves);
+
     }
 
 //    public void flip
