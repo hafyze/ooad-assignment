@@ -18,15 +18,15 @@ public class MenuView extends JPanel {
         add(loadBtn);
     }
 
-    public void addNewGameListener(ActionListener listenerForNewBtn){
+    public void addNewBoardListener(ActionListener listenerForNewBtn){
         newBtn.addActionListener(listenerForNewBtn);
     }
 
-    public void addSaveGameListener(ActionListener listenerForSaveBtn){
+    public void addSaveBoardListener(ActionListener listenerForSaveBtn){
         saveBtn.addActionListener(listenerForSaveBtn);
     }
 
-    public void addLoadGameListener(ActionListener listenerForLoadBtn){
+    public void addLoadBoardListener(ActionListener listenerForLoadBtn){
         loadBtn.addActionListener(listenerForLoadBtn);
     }
 }

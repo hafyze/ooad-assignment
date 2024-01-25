@@ -77,7 +77,7 @@ public class Board {
         return currentBottomBoardColor;
     }
 
-    public void switchBottomBoardColor(){
+    public void switchPieceColor(){
         currentBottomBoardColor = (currentBottomBoardColor == PieceColor.LIGHT) ? PieceColor.DARK : PieceColor.LIGHT;
 //        setFlipBoardSquares();
     }

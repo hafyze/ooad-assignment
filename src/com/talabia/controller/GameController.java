@@ -21,6 +21,9 @@ public class GameController {
         this.theView = theView;
         this.theModel = theModel;
 
+        theView.getMenuView().addNewBoardListener(new NewBoardListener());
+        theView.getMenuView().addSaveBoardListener(new SaveBoardListener());
+        theView.getMenuView().addLoadBoardListener(new LoadBoardListener());
         theView.getBoardView().addSquareListener(new SquareViewListener());
     }
 
@@ -58,9 +61,33 @@ public class GameController {
 //                }
                 theModel.getBoardSquares()[currentSquare.getRow()][currentSquare.getColumn()].setPiece(null, false);
                 theModel.getBoardSquares()[row][col].setPiece(currentPiece, true);
-                theModel.switchBottomBoardColor();
+                theModel.switchPieceColor();
                 theView.getBoardView().updateView();
             }
+        }
+    }
+
+
+    private class NewBoardListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            theModel.resetBoard();
+            theModel.switchPieceColor();
+            theView.getBoardView().updateView();
+        }
+    }
+
+    private class SaveBoardListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
+    }
+
+    private class LoadBoardListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
         }
     }
 }
