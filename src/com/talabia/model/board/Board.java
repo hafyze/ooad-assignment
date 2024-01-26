@@ -45,7 +45,7 @@ public class Board {
                 }
             }
         }
-
+        turnCounter=0;
         boardSquares[0][0] = new Square(0,0, new Plus(PieceColor.DARK));
 //        boardSquares[0][1] = new Square(0,1, new Hour(PieceColor.DARK));
         boardSquares[0][2] = new Square(0,2, new Time(PieceColor.DARK));
@@ -165,12 +165,13 @@ public class Board {
 
     public void saveBoard() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("BoardSave.txt"))) {
+            writer.write("Moves made:" + turnCounter + "\n");
+            writer.write("Current Piece Color:" + currentPieceColor + "\n");
             for (int row = 0; row < boardSquares.length; row++) {
                 for (int col = 0; col < boardSquares[row].length; col++) {
                     if (boardSquares[row][col].isOccupied()) {
                         String pieceName = boardSquares[row][col].getPiece().getPieceName();
-                        PieceColor color = boardSquares[row][col].getPiece().getPieceColor();
-                        writer.write(pieceName + " " + color + " at position (" + row + "," + col + ")\n");
+                        writer.write(pieceName + " " + boardSquares[row][col].getPiece().getPieceColor() + " at position (" + row + "," + col + ")\n");
                     }
                 }
             }
@@ -183,17 +184,22 @@ public class Board {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
-
-                String[] parts = line.split(" at position \\(");
-                String[] pieceInfo = parts[0].split(" ");
-                String pieceName = pieceInfo[0];
-                PieceColor color = PieceColor.valueOf(pieceInfo[1]);
-
-                String[] position = parts[1].split(",|\\)");
-                int row = Integer.parseInt(position[0].trim());
-                int col = Integer.parseInt(position[1].trim());
-
-                boardSquares[row][col].placeNewPiece(pieceName, color);
+                if (line.startsWith("Moves made:")) {
+                    turnCounter = Integer.parseInt(line.substring(line.lastIndexOf(":") + 1).trim());
+                } else if (line.startsWith("Current Piece Color:")) {
+                    currentPieceColor = PieceColor.valueOf(line.substring(line.lastIndexOf(":") + 1).trim());
+                } else {
+                    String[] parts = line.split(" at position \\(");
+                    String[] pieceInfo = parts[0].split(" ");
+                    String pieceName = pieceInfo[0];
+                    PieceColor color = PieceColor.valueOf(pieceInfo[1]);
+    
+                    String[] position = parts[1].split(",|\\)");
+                    int row = Integer.parseInt(position[0].trim());
+                    int col = Integer.parseInt(position[1].trim());
+    
+                    boardSquares[row][col].placeNewPiece(pieceName, color);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
