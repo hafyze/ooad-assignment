@@ -45,11 +45,11 @@ public class Board {
         }
 
         boardSquares[0][0] = new Square(0,0, new Plus(PieceColor.DARK));
-        boardSquares[0][1] = new Square(0,1, new Hour(PieceColor.DARK));
+//        boardSquares[0][1] = new Square(0,1, new Hour(PieceColor.DARK));
         boardSquares[0][2] = new Square(0,2, new Time(PieceColor.DARK));
         boardSquares[0][3] = new Square(0,3, new Sun(PieceColor.DARK));
         boardSquares[0][4] = new Square(0,4, new Time(PieceColor.DARK));
-        boardSquares[0][5] = new Square(0,5, new Hour(PieceColor.DARK));
+//        boardSquares[0][5] = new Square(0,5, new Hour(PieceColor.DARK));
         boardSquares[0][6] = new Square(0,6, new Plus(PieceColor.DARK));
 
         boardSquares[5][0] = new Square(5,0, new Plus(PieceColor.LIGHT));
