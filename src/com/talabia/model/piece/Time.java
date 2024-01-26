@@ -4,7 +4,8 @@ import com.talabia.model.board.Square;
 
 import java.util.ArrayList;
 
-public class Time extends AbstractPiece{
+public class Time extends AbstractPiece {
+
     public Time(PieceColor pieceColor) {
         super("Time", pieceColor);
         this.pieceImageName = pieceColor.toString() + "_" + pieceName;
@@ -17,22 +18,8 @@ public class Time extends AbstractPiece{
         int currentRow = currentSquare.getRow();
         int currentCol = currentSquare.getColumn();
 
-        // Move diagonal logic
-        for (int rowDirection : new int[]{-1, 1}) {
-            for (int colDirection : new int[]{-1, 1}) {
-                int row = currentRow + rowDirection;
-                int col = currentCol + colDirection;
-
-                while (row >= 0 && row < squares.length && col >= 0 && col < squares[0].length) {
-                    Square square = squares[row][col];
-                    possibleMoves.add(square);
-
-                    // Diagonal movement
-                    row += rowDirection;
-                    col += colDirection;
-                }
-            }
-        }
+        // Make diagonal movements
+        calculateDiagonalMoves(currentRow, currentCol, squares, possibleMoves);
 
         this.possibleMoves = possibleMoves;
     }
@@ -41,4 +28,35 @@ public class Time extends AbstractPiece{
     public ArrayList<Square> getPossibleMoves() {
         return this.possibleMoves;
     }
+
+    private void calculateDiagonalMoves(int currentRow, int currentCol, Square[][] squares, ArrayList<Square> possibleMoves) {
+        for (int rowDirection : new int[]{-1, 1}) {
+            for (int colDirection : new int[]{-1, 1}) {
+                int row = currentRow + rowDirection;
+                int col = currentCol + colDirection;
+
+                while (isValidMove(row, col, squares)) {
+                    Square square = squares[row][col];
+
+                    if (!square.isOccupied()) {
+                        possibleMoves.add(square);
+                    } else {
+                        // Break only if the occupied piece is different color
+                        if (square.getPiece().getPieceColor() != this.pieceColor) {
+                            possibleMoves.add(square);
+                        }
+                        break;
+                    }
+
+                    row += rowDirection;
+                    col += colDirection;
+                }
+            }
+        }
+    }
+
+    private boolean isValidMove(int row, int col, Square[][] squares) {
+        return row >= 0 && row < squares.length && col >= 0 && col < squares[0].length;
+    }
 }
+

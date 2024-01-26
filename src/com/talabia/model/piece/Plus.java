@@ -17,46 +17,51 @@ public class Plus extends AbstractPiece{
         ArrayList<Square> possibleMoves = new ArrayList<>();
         Board board = new Board();
 
+        int boardRow = board.getBoardRow();
+        int boardCol = board.getBoardCol();
+
         int currentRow = currentSquare.getRow();
         int currentCol = currentSquare.getColumn();
 
         // Move up
-        for (int i = 1; i <= board.getBoardRow(); i++) {
-            int newRow = currentRow - i;
-            if (newRow >= 0) {
-                possibleMoves.add(squares[newRow][currentCol]);
-            }
-        }
+        calculateMoves(possibleMoves, squares, currentRow, currentCol, -1, 0, boardRow);
 
         // Move down
-        for (int i = 1; i <= board.getBoardRow(); i++) {
-            int newRow = currentRow + i;
-            if (newRow < squares.length) {
-                possibleMoves.add(squares[newRow][currentCol]);
-            }
-        }
+        calculateMoves(possibleMoves, squares, currentRow, currentCol, 1, 0, boardRow);
 
         // Move left
-        for (int i = 1; i <= board.getBoardCol(); i++) {
-            int newCol = currentCol - i;
-            if (newCol >= 0) {
-                possibleMoves.add(squares[currentRow][newCol]);
-            }
-        }
+        calculateMoves(possibleMoves, squares, currentRow, currentCol, 0, -1, boardCol);
 
         // Move right
-        for (int i = 1; i <= board.getBoardCol(); i++) {
-            int newCol = currentCol + i;
-            if (newCol < squares[0].length) {
-                possibleMoves.add(squares[currentRow][newCol]);
-            }
-        }
+        calculateMoves(possibleMoves, squares, currentRow, currentCol, 0, 1, boardCol);
 
         this.possibleMoves = possibleMoves;
     }
 
+    private void calculateMoves(ArrayList<Square> possibleMoves, Square[][] squares,
+                                int currentRow, int currentCol, int rowDirection,
+                                int colDirection, int maxSteps) {
+        boolean canMove = true;
+        for (int i = 1; i <= maxSteps && canMove; i++) {
+            int newRow = currentRow + i * rowDirection;
+            int newCol = currentCol + i * colDirection;
+
+            if (newRow >= 0 && newRow < squares.length && newCol >= 0 && newCol < squares[0].length) {
+                Square targetSquare = squares[newRow][newCol];
+
+                // Check if square is occupied by the same color
+                if (!targetSquare.isOccupied() || targetSquare.getPiece().getPieceColor() != getPieceColor()) {
+                    possibleMoves.add(targetSquare);
+                    canMove = !targetSquare.isOccupied();
+                } else {
+                    // Break loop if target square is occupied by the same color
+                    break;
+                }
+            }
+        }
+    }
     @Override
     public ArrayList<Square> getPossibleMoves() {
-        return possibleMoves;
+        return this.possibleMoves;
     }
 }
