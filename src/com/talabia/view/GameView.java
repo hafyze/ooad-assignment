@@ -4,6 +4,8 @@ import com.talabia.model.board.Board;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class GameView extends JFrame {
     private MenuView menuView;
@@ -11,7 +13,6 @@ public class GameView extends JFrame {
 
     public GameView(Board board){
         super("Talabia Chess");
-        setSize(500,500);
         setLayout(new BorderLayout());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -20,6 +21,8 @@ public class GameView extends JFrame {
 
         add(menuView, BorderLayout.NORTH);
         add(boardView, BorderLayout.CENTER);
+
+        setMinimumSize(new Dimension(625,675));
     }
 
     public MenuView getMenuView() {

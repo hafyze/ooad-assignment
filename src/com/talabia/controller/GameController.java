@@ -7,6 +7,7 @@ import com.talabia.model.piece.PieceColor;
 import com.talabia.view.GameView;
 import com.talabia.view.SquareView;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.io.*;
@@ -24,10 +25,10 @@ public class GameController {
         this.theView = theView;
         this.theModel = theModel;
 
-        theView.getBoardView().addSquareListener(new SquareViewListener());
         theView.getMenuView().addNewBoardListener(new NewBoardListener());
         theView.getMenuView().addLoadBoardListener(new LoadBoardListener());
         theView.getMenuView().addSaveBoardListener(new SaveboardListener());
+        theView.getBoardView().addSquareListener(new SquareViewListener());
     }
 
     private class SquareViewListener implements ActionListener{

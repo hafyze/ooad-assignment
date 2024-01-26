@@ -9,7 +9,6 @@ public class Board {
     private static final int BOARD_ROW = 6;
     private static final int BOARD_COL = 7;
     private static final int TURNS_TO_SWITCH = 4;
-
     private int turnCounter = 0;
 
 
