@@ -62,7 +62,7 @@ public class Board {
 
     }
 
-    public void clearGame() {
+    public void clearBoard() {
         for (int row = 0; row < boardSquares.length; row++) {
             for (int col = 0; col < boardSquares[row].length; col++) {
                 boardSquares[row][col].setPiece(null,false);
@@ -113,8 +113,8 @@ public class Board {
         }
     }
 
-    public void saveGame() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("gameState.txt"))) {
+    public void saveBoard() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("BoardSave.txt"))) {
             for (int row = 0; row < boardSquares.length; row++) {
                 for (int col = 0; col < boardSquares[row].length; col++) {
                     if (boardSquares[row][col].isOccupied()) {
@@ -128,8 +128,8 @@ public class Board {
             e.printStackTrace();
         }
     }
-    public void loadGame(String filePath) {
-        clearGame();
+    public void loadBoard(String filePath) {
+        clearBoard();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {

@@ -17,28 +17,17 @@ public class MenuView extends JPanel {
         add(newBtn);
         add(loadBtn);
         add(saveBtn);
-        
-//        saveBtn.addActionListener(e -> board.saveGame());
-//
-//        loadBtn.addActionListener(e -> {
-//            JFileChooser fileChooser = new JFileChooser();
-//            int returnValue = fileChooser.showOpenDialog(null);
-//            if (returnValue == JFileChooser.APPROVE_OPTION) {
-//                File selectedFile = fileChooser.getSelectedFile();
-//                board.loadGame(selectedFile.getAbsolutePath());
-//            }
-//        });
     }
 
-    public void addNewGameListener(ActionListener listenerForNewBtn){
+    public void addNewBoardListener(ActionListener listenerForNewBtn){
         newBtn.addActionListener(listenerForNewBtn);
     }
 
-    public void addSaveGameListener(ActionListener listenerForSaveBtn){
+    public void addSaveBoardListener(ActionListener listenerForSaveBtn){
         saveBtn.addActionListener(listenerForSaveBtn);
     }
 
-    public void addLoadGameListener(ActionListener listenerForLoadBtn){
+    public void addLoadBoardListener(ActionListener listenerForLoadBtn){
         loadBtn.addActionListener(listenerForLoadBtn);
     }
 }

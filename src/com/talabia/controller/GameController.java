@@ -25,9 +25,9 @@ public class GameController {
         this.theModel = theModel;
 
         theView.getBoardView().addSquareListener(new SquareViewListener());
-        theView.getMenuView().addNewGameListener(new NewBoardListener());
-        theView.getMenuView().addLoadGameListener(new LoadBoardListener());
-        theView.getMenuView().addSaveGameListener(new SaveboardListener());
+        theView.getMenuView().addNewBoardListener(new NewBoardListener());
+        theView.getMenuView().addLoadBoardListener(new LoadBoardListener());
+        theView.getMenuView().addSaveBoardListener(new SaveboardListener());
     }
 
     private class SquareViewListener implements ActionListener{
@@ -96,7 +96,7 @@ public class GameController {
             int returnValue = fileChooser.showOpenDialog(null);
             if (returnValue == JFileChooser.APPROVE_OPTION) {
                 File selectedFile = fileChooser.getSelectedFile();
-                theModel.loadGame(selectedFile.getAbsolutePath());
+                theModel.loadBoard(selectedFile.getAbsolutePath());
                 theView.getBoardView().updateView();
             }
         }
@@ -106,7 +106,7 @@ public class GameController {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("Save");
-            theModel.saveGame();
+            theModel.saveBoard();
         }
     }
 }
