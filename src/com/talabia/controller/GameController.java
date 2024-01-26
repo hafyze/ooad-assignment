@@ -78,7 +78,6 @@ public class GameController {
     }
 
     private class NewBoardListener implements ActionListener {
-
         @Override
         public void actionPerformed(ActionEvent e) {
             theModel.resetBoard();
@@ -88,7 +87,6 @@ public class GameController {
     }
 
     private class LoadBoardListener implements ActionListener {
-
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("Load");
