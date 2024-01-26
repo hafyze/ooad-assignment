@@ -41,7 +41,7 @@ public class GameController {
             Square chosenSquare = theModel.getBoardSquares()[row][col];
 
             if(chosenSquare.isOccupied() != false &&
-                    chosenSquare.getPiece().getPieceColor() == theModel.getCurrentBottomBoardColor()){
+                    chosenSquare.getPiece().getPieceColor() == theModel.getCurrentPieceColor()){
                 currentSquare = chosenSquare;
                 currentPiece = currentSquare.getPiece();
                 currentPiece.setPossibleMoves(currentSquare,theModel.getBoardSquares());
@@ -50,7 +50,7 @@ public class GameController {
             }
 
             if (chosenSquare.isOccupied() == false ||
-                    chosenSquare.getPiece().getPieceColor() != theModel.getCurrentBottomBoardColor()) {
+                    chosenSquare.getPiece().getPieceColor() != theModel.getCurrentPieceColor()) {
 //                if(theModel.getCurrentBottomBoardColor() == PieceColor.LIGHT){
 //                    theModel.getBoardSquares()[currentSquare.getRow()][currentSquare.getColumn()].setPiece(null, false);
 //                    theModel.getBoardSquares()[row][col].setPiece(currentPiece, true);
@@ -63,7 +63,7 @@ public class GameController {
 //                }
                 theModel.getBoardSquares()[currentSquare.getRow()][currentSquare.getColumn()].setPiece(null, false);
                 theModel.getBoardSquares()[row][col].setPiece(currentPiece, true);
-                theModel.switchBottomBoardColor();
+                theModel.switchPieceColor();
                 theView.getBoardView().updateView();
 
                 // Check for winner after each move
@@ -82,7 +82,7 @@ public class GameController {
         @Override
         public void actionPerformed(ActionEvent e) {
             theModel.resetBoard();
-            theModel.switchBottomBoardColor();
+            theModel.switchPieceColor();
             theView.getBoardView().updateView();
         }
     }

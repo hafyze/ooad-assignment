@@ -12,14 +12,14 @@ public class Board {
     private final Square[][] boardSquares;
     //private final Square[][] flipBoardSquares;
 
-    private PieceColor currentBottomBoardColor;
+    private PieceColor currentPieceColor;
 
     public Board(){
         boardSquares = new Square[BOARD_ROW][BOARD_COL];
         //flipBoardSquares = new Square[BOARD_ROW][BOARD_COL];
 
         resetBoard();
-        currentBottomBoardColor = PieceColor.LIGHT;
+        currentPieceColor = PieceColor.LIGHT;
     }
 
     public int getBoardRow(){
@@ -128,6 +128,7 @@ public class Board {
             e.printStackTrace();
         }
     }
+
     public void loadBoard(String filePath) {
         clearBoard();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -151,18 +152,17 @@ public class Board {
     }
 
 
-
     public Square[][] getBoardSquares() {
 //        return currentBottomBoardColor == PieceColor.LIGHT ? boardSquares : flipBoardSquares;
         return boardSquares;
     }
 
-    public PieceColor getCurrentBottomBoardColor() {
-        return currentBottomBoardColor;
+    public PieceColor getCurrentPieceColor() {
+        return currentPieceColor;
     }
 
-    public void switchBottomBoardColor(){
-        currentBottomBoardColor = (currentBottomBoardColor == PieceColor.LIGHT) ? PieceColor.DARK : PieceColor.LIGHT;
+    public void switchPieceColor(){
+        currentPieceColor = (currentPieceColor == PieceColor.LIGHT) ? PieceColor.DARK : PieceColor.LIGHT;
 //        setFlipBoardSquares();
     }
 
