@@ -1,22 +1,26 @@
 package com.talabia.model.board;
 
+import com.talabia.model.piece.*;
+
 import java.io.*;
 
 
-import com.talabia.model.piece.*;
-import com.talabia.view.BoardView;
 public class Board {
     private static final int BOARD_ROW = 6;
     private static final int BOARD_COL = 7;
+    private static final int TURNS_TO_SWITCH = 4;
+
+    private int turnCounter = 0;
+
 
     private final Square[][] boardSquares;
-    //private final Square[][] flipBoardSquares;
+//    private final Square[][] flipBoardSquares;
 
     private PieceColor currentPieceColor;
 
     public Board(){
         boardSquares = new Square[BOARD_ROW][BOARD_COL];
-        //flipBoardSquares = new Square[BOARD_ROW][BOARD_COL];
+//        flipBoardSquares = new Square[BOARD_ROW][BOARD_COL];
 
         resetBoard();
         currentPieceColor = PieceColor.LIGHT;
@@ -31,17 +35,6 @@ public class Board {
     }
 
     public void resetBoard(){
-//        for(int row = 0; row < BOARD_ROW; row++){
-//            for(int col = 0; col < BOARD_COL; col++){
-//                if(row != 5){
-//                    boardSquares[row][col] = new Square(new Location(row, col));
-//                    if (row == 4) {
-//                        boardSquares[row][col] = new Square(new Location(row, col), new Point(PieceColor.LIGHT));
-//                    }
-//                }
-//            }
-//        }
-
         for(int row = 0; row < BOARD_ROW; row++){
             for(int col = 0; col < BOARD_COL; col++){
                 boardSquares[row][col] = new Square(row, col);
@@ -70,6 +63,55 @@ public class Board {
         boardSquares[5][6] = new Square(5,6, new Plus(PieceColor.LIGHT));
     }
 
+    public Square[][] getBoardSquares() {
+        return boardSquares;
+//        return currentBottomBoardColor == PieceColor.LIGHT ? boardSquares : flipBoardSquares;
+    }
+
+    public PieceColor getCurrentPieceColor() {
+        return currentPieceColor;
+    }
+
+    public void switchPieceColor(){
+        currentPieceColor = (currentPieceColor == PieceColor.LIGHT) ? PieceColor.DARK : PieceColor.LIGHT;
+    }
+
+    public void incrementTurnCounter(){
+        turnCounter++;
+        switchPieceType();
+    }
+
+//    public void setFlipBoardSquares(){
+//        for(int row = 0; row < BOARD_ROW; row ++){
+//            for(int col = 0; col < BOARD_COL; col++){
+//                flipBoardSquares[row][col] = boardSquares[BOARD_ROW-1-row][BOARD_COL-1-col];
+//            }
+//        }
+//    }
+
+    public void switchPieceType() {
+        System.out.println(turnCounter);
+        if (turnCounter % TURNS_TO_SWITCH == 0) {
+            for (int row = 0; row < BOARD_ROW; row++) {
+                for (int col = 0; col < BOARD_COL; col++) {
+                    Square square = boardSquares[row][col];
+                    if (square.isOccupied()) {
+                        AbstractPiece currentPiece = square.getPiece();
+                        System.out.println(currentPiece);
+                        // Check if piece is  Time or Plus
+                        if (currentPiece instanceof Time) {
+                            // Replace Time with Plus
+                            boardSquares[row][col].setPiece(new Plus(currentPiece.getPieceColor()), true);
+                        } else if (currentPiece instanceof Plus) {
+                            // Replace Plus with Time
+                            boardSquares[row][col].setPiece(new Time(currentPiece.getPieceColor()), true);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     public void clearBoard() {
         for (int row = 0; row < boardSquares.length; row++) {
             for (int col = 0; col < boardSquares[row].length; col++) {
@@ -94,7 +136,7 @@ public class Board {
                 break;
             }
         }
-    
+
         // Check if the Dark Sun piece is present on the board
         boolean darkSunPresent = false;
         for (int row = 0; row < BOARD_ROW; row++) {
@@ -110,7 +152,7 @@ public class Board {
                 break;
             }
         }
-    
+
         // Determine the winner based on the presence of Sun pieces
         if (!lightSunPresent && darkSunPresent) {
             return PieceColor.DARK;
@@ -136,7 +178,6 @@ public class Board {
             e.printStackTrace();
         }
     }
-
     public void loadBoard(String filePath) {
         clearBoard();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -144,53 +185,18 @@ public class Board {
             while ((line = reader.readLine()) != null) {
 
                 String[] parts = line.split(" at position \\(");
-                String[] pieceInfo = parts[0].split(" "); 
+                String[] pieceInfo = parts[0].split(" ");
                 String pieceName = pieceInfo[0];
-                PieceColor color = PieceColor.valueOf(pieceInfo[1]); 
-    
-                String[] position = parts[1].split(",|\\)"); 
+                PieceColor color = PieceColor.valueOf(pieceInfo[1]);
+
+                String[] position = parts[1].split(",|\\)");
                 int row = Integer.parseInt(position[0].trim());
                 int col = Integer.parseInt(position[1].trim());
-    
+
                 boardSquares[row][col].placeNewPiece(pieceName, color);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-
-    public Square[][] getBoardSquares() {
-//        return currentBottomBoardColor == PieceColor.LIGHT ? boardSquares : flipBoardSquares;
-        return boardSquares;
-    }
-
-    public PieceColor getCurrentPieceColor() {
-        return currentPieceColor;
-    }
-
-    public void switchPieceColor(){
-        currentPieceColor = (currentPieceColor == PieceColor.LIGHT) ? PieceColor.DARK : PieceColor.LIGHT;
-//        setFlipBoardSquares();
-    }
-
-//    public void setFlipBoardSquares(){
-//        for(int row = 0; row < BOARD_ROW; row ++){
-//            for(int col = 0; col < BOARD_COL; col++){
-//                flipBoardSquares[row][col] = boardSquares[BOARD_ROW-1-row][BOARD_COL-1-col];
-//            }
-//        }
-//    }
-
-//    public void changeState(){
-//        Square tempSquare;
-//        // From Light to Dark
-//        if(currentBottomBoardColor == PieceColor.DARK){
-//            for(int row = 0; row < BOARD_ROW; row++){
-//                for (int col = 0; col < BOARD_COL; col++){
-//                    boardSquares[row][col].;
-//                }
-//            }
-//        }
-//    }
 }
