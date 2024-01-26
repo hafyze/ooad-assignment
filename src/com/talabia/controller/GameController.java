@@ -27,7 +27,7 @@ public class GameController {
 
         theView.getMenuView().addNewBoardListener(new NewBoardListener());
         theView.getMenuView().addLoadBoardListener(new LoadBoardListener());
-        theView.getMenuView().addSaveBoardListener(new SaveboardListener());
+        theView.getMenuView().addSaveBoardListener(new SaveBoardListener());
         theView.getBoardView().addSquareListener(new SquareViewListener());
     }
 
@@ -37,7 +37,7 @@ public class GameController {
             SquareView clickedSquare = (SquareView) e.getSource();
             int row = clickedSquare.getRow();
             int col = clickedSquare.getCol();
-
+            System.out.println(row + " " + col);
 //            System.out.println(theModel.getBoardSquares()[row][col]);
             Square chosenSquare = theModel.getBoardSquares()[row][col];
 
@@ -102,7 +102,7 @@ public class GameController {
         }
     }
 
-    private class SaveboardListener implements ActionListener {
+    private class SaveBoardListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("Save");

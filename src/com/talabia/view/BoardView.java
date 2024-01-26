@@ -78,10 +78,7 @@ public class BoardView extends JPanel {
     public void updateView(ArrayList<Square> possibleMoves){
         updateView();
         showPossibleMoves(possibleMoves);
-
     }
-
-//    public void flip
 
     private ImageIcon loadImage(String path){
         String relativePath = "/com/talabia/picture/" + path + ".png";

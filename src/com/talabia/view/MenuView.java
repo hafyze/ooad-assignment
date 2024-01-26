@@ -8,6 +8,7 @@ public class MenuView extends JPanel {
     private JButton newBtn;
     private JButton saveBtn;
     private JButton loadBtn;
+    private JButton flipBtn;
 
     public MenuView(){
         newBtn = new JButton("New");
