@@ -38,7 +38,7 @@ public class GameController {
             Square chosenSquare = theModel.getBoardSquares()[row][col];
 
             if(chosenSquare.isOccupied() != false &&
-                    chosenSquare.getPiece().getPieceColor() == theModel.getCurrentBottomBoardColor()){
+                    chosenSquare.getPiece().getPieceColor() == theModel.getCurrentPieceColor()){
                 currentSquare = chosenSquare;
                 currentPiece = currentSquare.getPiece();
                 currentPiece.setPossibleMoves(currentSquare,theModel.getBoardSquares());
@@ -48,7 +48,7 @@ public class GameController {
             }
 
             if (chosenSquare.isOccupied() == false ||
-                    chosenSquare.getPiece().getPieceColor() != theModel.getCurrentBottomBoardColor()) {
+                    chosenSquare.getPiece().getPieceColor() != theModel.getCurrentPieceColor()) {
 //                if(theModel.getCurrentBottomBoardColor() == PieceColor.LIGHT){
 //                    theModel.getBoardSquares()[currentSquare.getRow()][currentSquare.getColumn()].setPiece(null, false);
 //                    theModel.getBoardSquares()[row][col].setPiece(currentPiece, true);
@@ -61,6 +61,7 @@ public class GameController {
 //                }
                 theModel.getBoardSquares()[currentSquare.getRow()][currentSquare.getColumn()].setPiece(null, false);
                 theModel.getBoardSquares()[row][col].setPiece(currentPiece, true);
+                theModel.incrementTurnCounter();
                 theModel.switchPieceColor();
                 theView.getBoardView().updateView();
             }
