@@ -1,0 +1,2 @@
+Sun DARK at position (3,5)
+Sun LIGHT at position (4,5)

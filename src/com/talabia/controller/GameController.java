@@ -6,9 +6,12 @@ import com.talabia.model.piece.AbstractPiece;
 import com.talabia.model.piece.PieceColor;
 import com.talabia.view.GameView;
 import com.talabia.view.SquareView;
-
+import javax.swing.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.io.*;
+
+import javax.swing.JOptionPane;
 
 public class GameController {
     private GameView theView;
@@ -21,10 +24,10 @@ public class GameController {
         this.theView = theView;
         this.theModel = theModel;
 
-        theView.getMenuView().addNewBoardListener(new NewBoardListener());
-        theView.getMenuView().addSaveBoardListener(new SaveBoardListener());
-        theView.getMenuView().addLoadBoardListener(new LoadBoardListener());
         theView.getBoardView().addSquareListener(new SquareViewListener());
+        theView.getMenuView().addNewBoardListener(new NewBoardListener());
+        theView.getMenuView().addLoadBoardListener(new LoadBoardListener());
+        theView.getMenuView().addSaveBoardListener(new SaveboardListener());
     }
 
     private class SquareViewListener implements ActionListener{
@@ -38,17 +41,16 @@ public class GameController {
             Square chosenSquare = theModel.getBoardSquares()[row][col];
 
             if(chosenSquare.isOccupied() != false &&
-                    chosenSquare.getPiece().getPieceColor() == theModel.getCurrentPieceColor()){
+                    chosenSquare.getPiece().getPieceColor() == theModel.getCurrentBottomBoardColor()){
                 currentSquare = chosenSquare;
                 currentPiece = currentSquare.getPiece();
                 currentPiece.setPossibleMoves(currentSquare,theModel.getBoardSquares());
                 possibleMoves = currentPiece.getPossibleMoves();
                 theView.getBoardView().updateView(possibleMoves);
-                System.out.println(theModel.getBoardSquares()[row][col].getPiece().getPieceName());
             }
 
             if (chosenSquare.isOccupied() == false ||
-                    chosenSquare.getPiece().getPieceColor() != theModel.getCurrentPieceColor()) {
+                    chosenSquare.getPiece().getPieceColor() != theModel.getCurrentBottomBoardColor()) {
 //                if(theModel.getCurrentBottomBoardColor() == PieceColor.LIGHT){
 //                    theModel.getBoardSquares()[currentSquare.getRow()][currentSquare.getColumn()].setPiece(null, false);
 //                    theModel.getBoardSquares()[row][col].setPiece(currentPiece, true);
@@ -61,34 +63,50 @@ public class GameController {
 //                }
                 theModel.getBoardSquares()[currentSquare.getRow()][currentSquare.getColumn()].setPiece(null, false);
                 theModel.getBoardSquares()[row][col].setPiece(currentPiece, true);
-                theModel.incrementTurnCounter();
-                theModel.switchPieceColor();
+                theModel.switchBottomBoardColor();
+                theView.getBoardView().updateView();
+
+                // Check for winner after each move
+                //Board board = new Board();
+                PieceColor winner = theModel.findWinner();
+                if (winner != null) {
+                    JOptionPane.showMessageDialog(null, winner + " has won!", "Game Over", JOptionPane.PLAIN_MESSAGE);
+                    return;
+                }
+            }
+        }
+    }
+
+    private class NewBoardListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            theModel.resetBoard();
+            theModel.switchBottomBoardColor();
+            theView.getBoardView().updateView();
+        }
+    }
+
+    private class LoadBoardListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("Load");
+            JFileChooser fileChooser = new JFileChooser();
+            int returnValue = fileChooser.showOpenDialog(null);
+            if (returnValue == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = fileChooser.getSelectedFile();
+                theModel.loadBoard(selectedFile.getAbsolutePath());
                 theView.getBoardView().updateView();
             }
         }
     }
 
-
-    private class NewBoardListener implements ActionListener {
+    private class SaveboardListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            theModel.resetBoard();
-            theModel.switchPieceColor();
-            theView.getBoardView().updateView();
-        }
-    }
-
-    private class SaveBoardListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-        }
-    }
-
-    private class LoadBoardListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
+            System.out.println("Save");
+            theModel.saveBoard();
         }
     }
 }

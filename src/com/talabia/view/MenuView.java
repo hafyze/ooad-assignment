@@ -1,7 +1,8 @@
 package com.talabia.view;
-
+import com.talabia.model.board.*;
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.io.*;
 
 public class MenuView extends JPanel {
     private JButton newBtn;
@@ -14,8 +15,8 @@ public class MenuView extends JPanel {
         loadBtn = new JButton("Load");
 
         add(newBtn);
-        add(saveBtn);
         add(loadBtn);
+        add(saveBtn);
     }
 
     public void addNewBoardListener(ActionListener listenerForNewBtn){
