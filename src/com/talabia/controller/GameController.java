@@ -63,6 +63,7 @@ public class GameController {
 //                }
                 theModel.getBoardSquares()[currentSquare.getRow()][currentSquare.getColumn()].setPiece(null, false);
                 theModel.getBoardSquares()[row][col].setPiece(currentPiece, true);
+                theModel.incrementTurnCounter();
                 theModel.switchPieceColor();
                 theView.getBoardView().updateView();
 
