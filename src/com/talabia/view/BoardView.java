@@ -2,6 +2,7 @@ package com.talabia.view;
 
 import com.talabia.model.board.Board;
 import com.talabia.model.board.Square;
+import com.talabia.model.piece.PieceColor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -54,25 +55,36 @@ public class BoardView extends JPanel {
     }
 
     public void updateView(){
+        removeAll();
         for(int row = 0; row < board.getBoardRow(); row++){
             for(int col = 0; col < board.getBoardCol(); col++){
-                squares[row][col].setBackground(new Color(255, 255, 255));
-                if(board.getBoardSquares()[row][col].isOccupied()!=false){
-                    String pieceImageName = board.getBoardSquares()[row][col].getPiece().getPieceImageName();
+                int newRow = row;
+                int newCol = col;
+
+                if(board.getCurrentPieceColor() == PieceColor.DARK){
+                    newRow = board.getBoardRow() - 1 - row;
+                    newCol = board.getBoardCol() - 1 - col;
+                }
+                squares[newRow][newCol].setBackground(new Color(255, 255, 255));
+                if(board.getBoardSquares()[newRow][newCol].isOccupied()!=false){
+                    String pieceImageName = board.getBoardSquares()[newRow][newCol].getPiece().getPieceImageName();
                     ImageIcon icon = loadImage(pieceImageName);
-                    squares[row][col].setIcon(icon);
-                    squares[row][col].setEnabled(true);
-                    squares[row][col].setDisabledIcon(icon);
-                    if(board.getBoardSquares()[row][col].getPiece().getPieceColor() != board.getCurrentPieceColor()){
-                        squares[row][col].setEnabled(false);
+                    squares[newRow][newCol].setIcon(icon);
+                    squares[newRow][newCol].setEnabled(true);
+                    squares[newRow][newCol].setDisabledIcon(icon);
+                    if(board.getBoardSquares()[newRow][newCol].getPiece().getPieceColor() != board.getCurrentPieceColor()){
+                        squares[newRow][newCol].setEnabled(false);
                     }
                 }
                 else {
-                    squares[row][col].setIcon(null);
-                    squares[row][col].setEnabled(false);
+                    squares[newRow][newCol].setIcon(null);
+                    squares[newRow][newCol].setEnabled(false);
                 }
+                add(squares[newRow][newCol]);
             }
         }
+        revalidate();
+        repaint();
     }
 
     public void updateView(ArrayList<Square> possibleMoves){
@@ -80,8 +92,6 @@ public class BoardView extends JPanel {
         showPossibleMoves(possibleMoves);
 
     }
-
-//    public void flip
 
     private ImageIcon loadImage(String path){
         String relativePath = "/com/talabia/picture/" + path + ".png";
