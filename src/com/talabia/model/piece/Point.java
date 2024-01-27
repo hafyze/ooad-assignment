@@ -17,8 +17,8 @@ public class Point extends AbstractPiece {
 
         int currentRow = currentSquare.getRow();
         int currentCol = currentSquare.getColumn();
-
-        for(int i = 0; i < 2; i++){
+        int i = 0;
+        for(i = 0 ; i < 2; i++){
             currentRow = currentRow - 1;
             if(currentRow >= 0){
                 possibleMoves.add(squares[currentRow][currentCol]);
