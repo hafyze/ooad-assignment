@@ -32,7 +32,7 @@ public class BoardView extends JPanel {
                     ImageIcon icon = loadImage(pieceImageName);
                     squares[row][col].setIcon(icon);
                     squares[row][col].setDisabledIcon(icon);
-                    if(board.getBoardSquares()[row][col].getPiece().getPieceColor() != board.getCurrentBottomBoardColor()){
+                    if(board.getBoardSquares()[row][col].getPiece().getPieceColor() != board.getCurrentPieceColor()){
                         squares[row][col].setEnabled(false);
                     }
                 }
@@ -63,7 +63,7 @@ public class BoardView extends JPanel {
                     squares[row][col].setIcon(icon);
                     squares[row][col].setEnabled(true);
                     squares[row][col].setDisabledIcon(icon);
-                    if(board.getBoardSquares()[row][col].getPiece().getPieceColor() != board.getCurrentBottomBoardColor()){
+                    if(board.getBoardSquares()[row][col].getPiece().getPieceColor() != board.getCurrentPieceColor()){
                         squares[row][col].setEnabled(false);
                     }
                 }
@@ -78,6 +78,7 @@ public class BoardView extends JPanel {
     public void updateView(ArrayList<Square> possibleMoves){
         updateView();
         showPossibleMoves(possibleMoves);
+
     }
 
 //    public void flip
@@ -93,7 +94,7 @@ public class BoardView extends JPanel {
         for(int row = 0; row < board.getBoardRow(); row++){
             for(int col = 0; col < board.getBoardCol(); col++){
                 if(board.getBoardSquares()[row][col].isOccupied()!=false &&
-                        board.getBoardSquares()[row][col].getPiece().getPieceColor() == board.getCurrentBottomBoardColor()){
+                        board.getBoardSquares()[row][col].getPiece().getPieceColor() == board.getCurrentPieceColor()){
                     squares[row][col].setEnabled(true);
                 }
                 squares[row][col].addActionListener(listener);
