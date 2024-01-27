@@ -17,13 +17,23 @@ public class Point extends AbstractPiece {
 
         int currentRow = currentSquare.getRow();
         int currentCol = currentSquare.getColumn();
-        int i = 0;
-        for(i = 0 ; i < 2; i++){
-            currentRow = currentRow - 1;
-            if(currentRow >= 0){
-                possibleMoves.add(squares[currentRow][currentCol]);
+
+        // Forward movement
+        for (int i = 1; i <= 2; i++) {
+            int newRow = currentRow - i;
+            if (newRow >= 0) {
+                possibleMoves.add(squares[newRow][currentCol]);
             }
         }
+
+        // Backward movement
+        for (int i = 1; i <= 2; i++) {
+            int newRow = currentRow + i;
+            if (newRow < squares.length) {
+                possibleMoves.add(squares[newRow][currentCol]);
+            }
+        }
+
         this.possibleMoves = possibleMoves;
     }
 

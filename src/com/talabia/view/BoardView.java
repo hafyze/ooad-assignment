@@ -78,6 +78,7 @@ public class BoardView extends JPanel {
     public void updateView(ArrayList<Square> possibleMoves){
         updateView();
         showPossibleMoves(possibleMoves);
+
     }
 
     private ImageIcon loadImage(String path){
