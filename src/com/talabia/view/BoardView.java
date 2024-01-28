@@ -7,6 +7,9 @@ import com.talabia.model.piece.PieceColor;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class BoardView extends JPanel {
@@ -30,7 +33,7 @@ public class BoardView extends JPanel {
                 squares[row][col].setEnabled(false);
                 if(board.getBoardSquares()[row][col].isOccupied()!=false){
                     String pieceImageName = board.getBoardSquares()[row][col].getPiece().getPieceImageName();
-                    ImageIcon icon = loadImage(pieceImageName);
+                    ImageIcon icon = loadImage(pieceImageName, false);
                     squares[row][col].setIcon(icon);
                     squares[row][col].setDisabledIcon(icon);
                     if(board.getBoardSquares()[row][col].getPiece().getPieceColor() != board.getCurrentPieceColor()){
@@ -58,17 +61,21 @@ public class BoardView extends JPanel {
         removeAll();
         for(int row = 0; row < board.getBoardRow(); row++){
             for(int col = 0; col < board.getBoardCol(); col++){
+                // LIGHT bottom - DARK top
                 int newRow = row;
                 int newCol = col;
+                boolean flip = false;
 
+                // DARK bottom - LIGHT top
                 if(board.getCurrentPieceColor() == PieceColor.DARK){
                     newRow = board.getBoardRow() - 1 - row;
                     newCol = board.getBoardCol() - 1 - col;
+                    flip = true;
                 }
                 squares[newRow][newCol].setBackground(new Color(255, 255, 255));
                 if(board.getBoardSquares()[newRow][newCol].isOccupied()!=false){
                     String pieceImageName = board.getBoardSquares()[newRow][newCol].getPiece().getPieceImageName();
-                    ImageIcon icon = loadImage(pieceImageName);
+                    ImageIcon icon = loadImage(pieceImageName, flip);
                     squares[newRow][newCol].setIcon(icon);
                     squares[newRow][newCol].setEnabled(true);
                     squares[newRow][newCol].setDisabledIcon(icon);
@@ -90,13 +97,36 @@ public class BoardView extends JPanel {
     public void updateView(ArrayList<Square> possibleMoves){
         updateView();
         showPossibleMoves(possibleMoves);
-
     }
 
-    private ImageIcon loadImage(String path){
+//    private ImageIcon loadImage(String path){
+//        String relativePath = "/com/talabia/picture/" + path + ".png";
+//        Image image = new ImageIcon(this.getClass().getResource(relativePath)).getImage();
+//        Image scaledImage = image.getScaledInstance(90, 90, java.awt.Image.SCALE_SMOOTH);
+//        return new ImageIcon(scaledImage);
+//    }
+
+    private ImageIcon loadImage(String path, boolean flip) {
+        double angleDegrees = flip ? 180 : 0;
+
         String relativePath = "/com/talabia/picture/" + path + ".png";
-        Image image = new ImageIcon(this.getClass().getResource(relativePath)).getImage();
-        Image scaledImage = image.getScaledInstance(90, 90, java.awt.Image.SCALE_SMOOTH);
+        Image originalImage = new ImageIcon(this.getClass().getResource(relativePath)).getImage();
+
+        // Convert ToolkitImage to BufferedImage
+        BufferedImage bufferedImage = new BufferedImage(originalImage.getWidth(null), originalImage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = bufferedImage.createGraphics();
+        g2d.drawImage(originalImage, 0, 0, null);
+        g2d.dispose();
+
+        // Rotate the image
+        double angleRadians = Math.toRadians(angleDegrees);
+        AffineTransform tx = AffineTransform.getRotateInstance(angleRadians, bufferedImage.getWidth() / 2.0, bufferedImage.getHeight() / 2.0);
+        AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+        Image rotatedImage = op.filter(bufferedImage, null);
+
+        // Scale the rotated image
+        Image scaledImage = rotatedImage.getScaledInstance(90, 90, java.awt.Image.SCALE_SMOOTH);
+
         return new ImageIcon(scaledImage);
     }
 

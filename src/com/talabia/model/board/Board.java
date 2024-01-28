@@ -38,7 +38,8 @@ public class Board {
                 boardSquares[row][col] = new Square(row, col);
                 if (row == 4) {
                     boardSquares[row][col] = new Square(row, col, new Point(PieceColor.LIGHT));
-                } else if (row == 1) {
+                }
+                else if (row == 1) {
                     boardSquares[row][col] = new Square(row, col, new Point(PieceColor.DARK));
                 }
             }
