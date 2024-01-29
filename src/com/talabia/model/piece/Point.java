@@ -6,11 +6,22 @@ import java.util.ArrayList;
 
 public class Point extends AbstractPiece {
 
+    /**
+     * Constructor for the Point piece.
+     *
+     * @param pieceColor The color of the Point piece (LIGHT or DARK).
+     */
     public Point(PieceColor pieceColor) {
         super("Point", pieceColor);
         this.pieceImageName = pieceColor.toString() + "_" + pieceName;
     }
 
+    /**
+     * Sets the possible moves for the Point piece on the given chessboard.
+     *
+     * @param currentSquare The current position of the Point piece.
+     * @param squares       The 2D array representing the chessboard.
+     */
     @Override
     public void setPossibleMoves(Square currentSquare, Square[][] squares) {
         ArrayList<Square> possibleMoves = new ArrayList<>();
@@ -36,12 +47,26 @@ public class Point extends AbstractPiece {
         this.possibleMoves = possibleMoves;
     }
 
+    /**
+     * Gets the possible moves for the Point piece.
+     *
+     * @return ArrayList of possible moves.
+     */
     @Override
     public ArrayList<Square> getPossibleMoves() {
         return this.possibleMoves;
     }
 
-    // Ensure this method overrides the method in the superclass
+    /**
+     * Checks if a move for the Point piece is valid.
+     *
+     * @param fromRow  The starting row of the move.
+     * @param fromCol  The starting column of the move.
+     * @param toRow    The destination row of the move.
+     * @param toCol    The destination column of the move.
+     * @param squares  The 2D array representing the chessboard.
+     * @return True if the move is valid, false otherwise.
+     */
     public boolean isValidMove(int fromRow, int fromCol, int toRow, int toCol, Square[][] squares) {
         // Check if the move is within the allowed range and in a forward direction
         int rowDifference = Math.abs(toRow - fromRow);
@@ -51,9 +76,12 @@ public class Point extends AbstractPiece {
         return rowDifference <= 2 && colDifference == 0 && (toRow - fromRow) * forwardDirection > 0;
     }
 
-    // Assuming there is a getStartingRow method in your AbstractPiece class
+    /**
+     * Gets the starting row for the Point piece based on its color.
+     *
+     * @return The starting row.
+     */
     private int getStartingRow() {
         return (pieceColor == PieceColor.LIGHT) ? 6 : 1;  // Adjust based on piece color
     }
 }
-

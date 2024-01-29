@@ -6,11 +6,22 @@ import java.util.ArrayList;
 
 public class Hour extends AbstractPiece {
 
+    /**
+     * Constructor for the Hourglass piece.
+     *
+     * @param pieceColor The color of the Hourglass piece (LIGHT or DARK).
+     */
     public Hour(PieceColor pieceColor) {
         super("Hour", pieceColor);
         this.pieceImageName = pieceColor.toString() + "_" + pieceName;
     }
 
+    /**
+     * Sets the possible moves for the Hourglass piece on the given chessboard.
+     *
+     * @param currentSquare The current position of the Hourglass piece.
+     * @param squares       The 2D array representing the chessboard.
+     */
     @Override
     public void setPossibleMoves(Square currentSquare, Square[][] squares) {
         ArrayList<Square> possibleMoves = new ArrayList<>();
@@ -43,8 +54,14 @@ public class Hour extends AbstractPiece {
         this.possibleMoves = possibleMoves;
     }
 
-
-
+    /**
+     * Gets the possible moves for the Hourglass piece.
+     *
+     * @return ArrayList of possible moves.
+     */
     @Override
-    public ArrayList<Square> getPossibleMoves() {return possibleMoves;}
+    public ArrayList<Square> getPossibleMoves() {
+        return possibleMoves;
+    }
 }
+
