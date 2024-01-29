@@ -78,34 +78,34 @@ public class GameController {
         }
     }
 
-    private class NewBoardListener implements ActionListener {
+    private class NewBoardListener implements ActionListener {// Listener for New button
         @Override
         public void actionPerformed(ActionEvent e) {
-            theModel.resetBoard();
-            theModel.switchPieceColor();
-            theView.getBoardView().updateView();
+            theModel.resetBoard(); // reset the board
+            theModel.switchPieceColor();//updating the turn colour
+            theView.getBoardView().updateView();//updating view
         }
     }
 
-    private class LoadBoardListener implements ActionListener {
+    private class LoadBoardListener implements ActionListener {// Listener for Load button
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Load");
-            JFileChooser fileChooser = new JFileChooser();
+            System.out.println("Load");//for action check
+            JFileChooser fileChooser = new JFileChooser();//To choose file
             int returnValue = fileChooser.showOpenDialog(null);
             if (returnValue == JFileChooser.APPROVE_OPTION) {
                 File selectedFile = fileChooser.getSelectedFile();
-                theModel.loadBoard(selectedFile.getAbsolutePath());
-                theView.getBoardView().updateView();
+                theModel.loadBoard(selectedFile.getAbsolutePath());//Loads the chosen file
+                theView.getBoardView().updateView();//update view
             }
         }
     }
 
-    private class SaveboardListener implements ActionListener {
+    private class SaveboardListener implements ActionListener {// Listener for Save button
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Save");
-            theModel.saveBoard();
+            System.out.println("Save");//for action check
+            theModel.saveBoard();//for writing the game info into txt file
         }
     }
 }

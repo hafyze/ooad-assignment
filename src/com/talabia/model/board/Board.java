@@ -112,17 +112,18 @@ public class Board {
         }
     }
 
-    public void clearBoard() {
+    public void clearBoard() { //Clears the board of any pieces
         for (int row = 0; row < boardSquares.length; row++) {
             for (int col = 0; col < boardSquares[row].length; col++) {
                 boardSquares[row][col].setPiece(null,false);
+                //Traverse all squares and empties it
             }
         }
     }
 
-    public PieceColor findWinner() {
+    public PieceColor findWinner() { //Find the Winner
         // Check if the Light Sun piece is present on the board
-        boolean lightSunPresent = false;
+        boolean lightSunPresent = false; //boolean to verify Light Sun Piece existence
         for (int row = 0; row < BOARD_ROW; row++) {
             for (int col = 0; col < BOARD_COL; col++) {
                 if (getBoardSquares()[row][col].getPiece() != null &&
@@ -138,7 +139,7 @@ public class Board {
         }
 
         // Check if the Dark Sun piece is present on the board
-        boolean darkSunPresent = false;
+        boolean darkSunPresent = false;//boolean to verify Dark Sun Piece existence
         for (int row = 0; row < BOARD_ROW; row++) {
             for (int col = 0; col < BOARD_COL; col++) {
                 if (getBoardSquares()[row][col].getPiece() != null &&
@@ -159,36 +160,36 @@ public class Board {
         } else if (lightSunPresent && !darkSunPresent) {
             return PieceColor.LIGHT;
         } else {
-            return null;
+            return null; // if both still present continue game
         }
     }
 
-    public void saveBoard() {
+    public void saveBoard() {//Saves the pieces locations, moves made and current turn into a txt file
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("BoardSave.txt"))) {
             writer.write("Moves made:" + turnCounter + "\n");
             writer.write("Current Piece Color:" + currentPieceColor + "\n");
             for (int row = 0; row < boardSquares.length; row++) {
                 for (int col = 0; col < boardSquares[row].length; col++) {
-                    if (boardSquares[row][col].isOccupied()) {
+                    if (boardSquares[row][col].isOccupied()) { //traversing squares to find pieces and record the position of it
                         String pieceName = boardSquares[row][col].getPiece().getPieceName();
                         writer.write(pieceName + " " + boardSquares[row][col].getPiece().getPieceColor() + " at position (" + row + "," + col + ")\n");
                     }
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace();//exception if error in writing file
         }
     }
-    public void loadBoard(String filePath) {
-        clearBoard();
+    public void loadBoard(String filePath) {//Loads the positions of pieces from the txt file
+        clearBoard();//clears the board so new pieces can be created
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                if (line.startsWith("Moves made:")) {
+                if (line.startsWith("Moves made:")) { //parsing for the moves made
                     turnCounter = Integer.parseInt(line.substring(line.lastIndexOf(":") + 1).trim());
-                } else if (line.startsWith("Current Piece Color:")) {
+                } else if (line.startsWith("Current Piece Color:")) {//parsing for the Turn
                     currentPieceColor = PieceColor.valueOf(line.substring(line.lastIndexOf(":") + 1).trim());
-                } else {
+                } else {//parsing for the board pieces
                     String[] parts = line.split(" at position \\(");
                     String[] pieceInfo = parts[0].split(" ");
                     String pieceName = pieceInfo[0];
@@ -198,10 +199,10 @@ public class Board {
                     int row = Integer.parseInt(position[0].trim());
                     int col = Integer.parseInt(position[1].trim());
     
-                    boardSquares[row][col].placeNewPiece(pieceName, color);
+                    boardSquares[row][col].placeNewPiece(pieceName, color);//placing new piece after initializing
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException e) {//exception if there's an error in reading the file
             e.printStackTrace();
         }
     }

@@ -25,13 +25,13 @@ public class Square {
 
 
 
-    public void placeNewPiece(String pieceName, PieceColor color) {
+    public void placeNewPiece(String pieceName, PieceColor color) {//to place a new piece in a square
         this.piece = createPiece(pieceName, color);
         this.isOccupied = true;
     }
 
-    private AbstractPiece createPiece(String pieceName, PieceColor color) {
-        switch (pieceName) {
+    private AbstractPiece createPiece(String pieceName, PieceColor color) { // to create a new piece
+        switch (pieceName) {//determine which piece is to be put down
             case "Hour":
                 return new Hour(color);
             case "Plus":
