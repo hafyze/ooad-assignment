@@ -4,15 +4,24 @@ import com.talabia.model.board.Square;
 
 import java.util.ArrayList;
 
-public class Point extends AbstractPiece {
+// Programmers : Afiq
+// This is the Point Piece Model in our Talabia Chess Game.
+// It extends the AbstractPiece superclass. The main purpose of this class is to set the
+// unique movement for the Point Pieces.
 
+public class Point extends AbstractPiece {
     private boolean reversed;
+
+    // Programmers: Afiq
+    // This is the Point Piece Constructor
     public Point(PieceColor pieceColor) {
         super("Point", pieceColor);
         this.pieceImageName = pieceColor.toString() + "_" + pieceName;
         this.reversed = false;
     }
 
+    // Programmers: Afiq
+    // To calculate and set the possible moves of the Point
     @Override
     public void setPossibleMoves(Square currentSquare, Square[][] squares) {
         int currentRow = currentSquare.getRow();
@@ -60,6 +69,8 @@ public class Point extends AbstractPiece {
         return this.possibleMoves;
     }
 
+    // Programmers: Afiq
+    // MovementOne is from (5,6) to (0,0)
     private ArrayList<Square> movementOne(Square currentSquare, Square[][] squares, int currentRow, int currentCol){
         ArrayList<Square> possibleMoves = new ArrayList<>();
         for(int i = 0; i < 2; i++){
@@ -79,6 +90,8 @@ public class Point extends AbstractPiece {
         return possibleMoves;
     }
 
+    // Programmers: Afiq
+    // MovementTwo is from (0,0) to (5,6)
     private ArrayList<Square> movementTwo(Square currentSquare, Square[][] squares, int currentRow, int currentCol){
         ArrayList<Square> possibleMoves = new ArrayList<>();
         for(int i = 0; i < 2; i++){

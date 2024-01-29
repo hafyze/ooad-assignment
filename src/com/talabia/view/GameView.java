@@ -7,10 +7,16 @@ import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
+// Programmers : Sumedha Endar
+// This is the GameView of our Talabia Chess Game. Actually, this more like a parent
+// container for the game. Inside it got a MenuView and a BoardView.
+
 public class GameView extends JFrame {
     private MenuView menuView;
     private BoardView boardView;
 
+    // Programmers: Sumedha Endar
+    // This is the GameView Constructor
     public GameView(Board board){
         super("Talabia Chess");
         setLayout(new BorderLayout());
@@ -25,6 +31,8 @@ public class GameView extends JFrame {
         setMinimumSize(new Dimension(625,675));
     }
 
+    // Programmers: Sumedha Endar
+    // These are the Setters & Getters
     public MenuView getMenuView() {
         return menuView;
     }
@@ -32,4 +40,5 @@ public class GameView extends JFrame {
     public BoardView getBoardView() {
         return boardView;
     }
+    // End of Setters & Getters
 }

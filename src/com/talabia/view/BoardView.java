@@ -12,11 +12,18 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+// Programmers : Sumedha Endar
+// This is the BoardView of our Talabia Chess Game.
+// The tasks of the BoardView is take the data from the Model and performed methods
+// that are related to the view.
+
 public class BoardView extends JPanel {
     private final SquareView[][] squares;
 
     private Board board;
 
+    // Programmers: Sumedha Endar
+    // This is the BoardView Constructor
     public BoardView(Board board){
         this.board = board;
 
@@ -26,6 +33,8 @@ public class BoardView extends JPanel {
         initializeSquares();
     }
 
+    // Programmers: Sumedha Endar
+    // This method is to initialize the squares, like whether this square is clickable or not.
     private void initializeSquares(){
         for(int row = 0; row < board.getBoardRow(); row++){
             for(int col = 0; col < board.getBoardCol(); col++){
@@ -46,6 +55,8 @@ public class BoardView extends JPanel {
         }
     }
 
+    // Programmers: Sumedha Endar
+    // This method is color the squares that match the possible moves to green color.
     public void showPossibleMoves(ArrayList<Square> possibleMoves){
         int possibleMovesLength = possibleMoves.size();
         for(int i = 0; i < possibleMovesLength; i++){
@@ -57,6 +68,8 @@ public class BoardView extends JPanel {
         }
     }
 
+    // Programmers: Sumedha Endar
+    // This method is to reflect the change of the view.
     public void updateView(){
         removeAll();
         for(int row = 0; row < board.getBoardRow(); row++){
@@ -94,18 +107,16 @@ public class BoardView extends JPanel {
         repaint();
     }
 
+    // Programmers: Sumedha Endar
+    // This method is to reflect the change of the view
+    // and color the possible move squares.
     public void updateView(ArrayList<Square> possibleMoves){
         updateView();
         showPossibleMoves(possibleMoves);
     }
 
-//    private ImageIcon loadImage(String path){
-//        String relativePath = "/com/talabia/picture/" + path + ".png";
-//        Image image = new ImageIcon(this.getClass().getResource(relativePath)).getImage();
-//        Image scaledImage = image.getScaledInstance(90, 90, java.awt.Image.SCALE_SMOOTH);
-//        return new ImageIcon(scaledImage);
-//    }
-
+    // Programmers: Sumedha Endar
+    // This method is to load the image of the pieces
     private ImageIcon loadImage(String path, boolean flip) {
         double angleDegrees = flip ? 180 : 0;
 
@@ -130,6 +141,8 @@ public class BoardView extends JPanel {
         return new ImageIcon(scaledImage);
     }
 
+    // Programmers: Sumedha Endar
+    // This method is to register the SquareViews to the SquareViewListener
     public void addSquareListener(ActionListener listener){
         for(int row = 0; row < board.getBoardRow(); row++){
             for(int col = 0; col < board.getBoardCol(); col++){

@@ -60,6 +60,7 @@ public class Plus extends AbstractPiece{
             }
         }
     }
+
     @Override
     public ArrayList<Square> getPossibleMoves() {
         return this.possibleMoves;

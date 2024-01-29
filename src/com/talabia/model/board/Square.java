@@ -2,58 +2,36 @@ package com.talabia.model.board;
 
 import com.talabia.model.piece.*;
 
+// Programmers : Sumedha Endar, Iyad Najimi
+// This is the Square Model in our Talabia Chess Game.
+// The Square Model performs all the calculations and logics related to a Square in the Board.
+
 public class Square {
     private int row;
     private int column;
-
     private boolean isOccupied;
     private AbstractPiece piece;
 
-    public Square() {
-        this.row = 0;
-        this.column = 0;
-        this.isOccupied = false;
-        this.piece = null;
-    }
-
+    // Programmers: Sumedha Endar
+    // These are the Square Constructors
+    // For Square that doesn't have a piece on it
     public Square(int row, int column){
         this.row = row;
         this.column = column;
         this.isOccupied = false;
         this.piece = null;
     }
-
-
-
-    public void placeNewPiece(String pieceName, PieceColor color) {
-        this.piece = createPiece(pieceName, color);
-        this.isOccupied = true;
-    }
-
-    private AbstractPiece createPiece(String pieceName, PieceColor color) {
-        switch (pieceName) {
-            case "Hour":
-                return new Hour(color);
-            case "Plus":
-                return new Plus(color);
-            case "Point":
-                return new Point(color);
-            case "Sun":
-                return new Sun(color);
-            case "Time":
-                return new Time(color);
-            default:
-                throw new IllegalArgumentException("Invalid piece name: " + pieceName);
-        }
-    }
-
+    // For Square that does have a piece on it
     public Square(int row, int column, AbstractPiece piece){
         this.row = row;
         this.column = column;
         this.isOccupied = true;
         this.piece = piece;
     }
+    // End of Constructors
 
+    // Programmers: Sumedha Endar, Iyad Najimi
+    // These are the Setters & Getters
     public int getRow() {
         return row;
     }
@@ -82,6 +60,11 @@ public class Square {
         return piece;
     }
 
+    public void setPiece(AbstractPiece piece, boolean isOccupied) {
+        this.piece = piece;
+        this.isOccupied = isOccupied;
+    }
+
     public PieceColor getPieceColor() {
         if (isOccupied && piece != null) {
             return piece.getPieceColor();
@@ -89,19 +72,27 @@ public class Square {
             return null;
         }
     }
+    // End of Setters & Getters
 
-    public void setPiece(AbstractPiece piece, boolean isOccupied) {
-        this.piece = piece;
-        this.isOccupied = isOccupied;
+    public void placeNewPiece(String pieceName, PieceColor color) {
+        this.piece = createPiece(pieceName, color);
+        this.isOccupied = true;
     }
 
-    @Override
-    public String toString() {
-        return "Square{" +
-                "row=" + row +
-                ", column=" + column +
-                ", isOccupied=" + isOccupied +
-                ", piece=" + piece +
-                '}';
+    private AbstractPiece createPiece(String pieceName, PieceColor color) {
+        switch (pieceName) {
+            case "Hour":
+                return new Hour(color);
+            case "Plus":
+                return new Plus(color);
+            case "Point":
+                return new Point(color);
+            case "Sun":
+                return new Sun(color);
+            case "Time":
+                return new Time(color);
+            default:
+                throw new IllegalArgumentException("Invalid piece name: " + pieceName);
+        }
     }
 }
