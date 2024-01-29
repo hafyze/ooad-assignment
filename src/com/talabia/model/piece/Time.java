@@ -19,7 +19,7 @@ public class Time extends AbstractPiece {
     }
 
     // Programmers: Zulhafiz
-    // To calculate and set the possible moves of the Sun
+    // To calculate and set the possible moves of the Time
     @Override
     public void setPossibleMoves(Square currentSquare, Square[][] squares) {
         ArrayList<Square> possibleMoves = new ArrayList<>();

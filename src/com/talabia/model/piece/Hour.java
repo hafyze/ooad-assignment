@@ -4,13 +4,21 @@ import com.talabia.model.board.Square;
 
 import java.util.ArrayList;
 
+// Programmers : Afiq
+// This is the Hour Piece Model in our Talabia Chess Game.
+// It extends the AbstractPiece superclass. The main purpose of this class is to set the
+// unique movement for the Hour Pieces.
 public class Hour extends AbstractPiece {
 
+    // Programmers: Afiq
+    // This is the Hour Piece Constructor
     public Hour(PieceColor pieceColor) {
         super("Hour", pieceColor);
         this.pieceImageName = pieceColor.toString() + "_" + pieceName;
     }
 
+    // Programmers: Afiq
+    // To calculate and set the possible moves of the Hour
     @Override
     public void setPossibleMoves(Square currentSquare, Square[][] squares) {
         ArrayList<Square> possibleMoves = new ArrayList<>();
