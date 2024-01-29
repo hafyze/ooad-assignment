@@ -84,6 +84,9 @@ public class GameController {
         }
     }
 
+    // Programmers: Iyad Najimi
+    // This is the NewBoardListener inner class, it purposes is to execute the actionPerformed
+    // method when the "New" button in the menu view is clicked.
     private class NewBoardListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -93,6 +96,9 @@ public class GameController {
         }
     }
 
+    // Programmers: Iyad Najimi
+    // This is the LoadBoardListener inner class, it purposes is to execute the actionPerformed
+    // method when the "Load" button in the menu view is clicked.
     private class LoadBoardListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -107,6 +113,9 @@ public class GameController {
         }
     }
 
+    // Programmers: Iyad Najimi
+    // This is the SaveBoardListener inner class, it purposes is to execute the actionPerformed
+    // method when the "Save" button in the menu view is clicked.
     private class SaveBoardListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {

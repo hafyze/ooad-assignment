@@ -19,14 +19,20 @@ public class MenuView extends JPanel {
         add(saveBtn);
     }
 
+    // Programmers: Iyad Najimi
+    // This method is to register the newBtn to the NewBoardListener in the GameController
     public void addNewBoardListener(ActionListener listenerForNewBtn){
         newBtn.addActionListener(listenerForNewBtn);
     }
 
+    // Programmers: Iyad Najimi
+    // This method is to register the saveBtn to the SaveBoardListener in the GameController
     public void addSaveBoardListener(ActionListener listenerForSaveBtn){
         saveBtn.addActionListener(listenerForSaveBtn);
     }
 
+    // Programmers: Iyad Najimi
+    // This method is to register the loadBtn to the LoadBoardListener in the GameController
     public void addLoadBoardListener(ActionListener listenerForLoadBtn){
         loadBtn.addActionListener(listenerForLoadBtn);
     }

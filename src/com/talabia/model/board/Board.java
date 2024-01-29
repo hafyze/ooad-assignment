@@ -81,11 +81,16 @@ public class Board {
         currentPieceColor = (currentPieceColor == PieceColor.LIGHT) ? PieceColor.DARK : PieceColor.LIGHT;
     }
 
+    // Programmers: Zulhafiz
+    // The incrementTurnCounter() is to count the number of rounds and switch the
+    // Plus and Time when two rounds or four turns are reached.
     public void incrementTurnCounter(){
         turnCounter++;
         switchPieceType();
     }
 
+    // Programmers: Zulhafiz
+    // The switchPieceType() is to switch the Plus and Time when two rounds or four turns are reached.
     public void switchPieceType() {
         if (turnCounter % TURNS_TO_SWITCH == 0) {
             for (int row = 0; row < BOARD_ROW; row++) {
@@ -107,17 +112,22 @@ public class Board {
         }
     }
 
+    // Programmers: Iyad Najimi
+    // The clearBoard() is to clear the board of any pieces
     public void clearBoard() {
         for (int row = 0; row < boardSquares.length; row++) {
             for (int col = 0; col < boardSquares[row].length; col++) {
                 boardSquares[row][col].setPiece(null,false);
+                //Traverse all squares and empties it
             }
         }
     }
 
+    // Programmers: Iyad Najimi
+    // The findWinner() is to find the Winner
     public PieceColor findWinner() {
         // Check if the Light Sun piece is present on the board
-        boolean lightSunPresent = false;
+        boolean lightSunPresent = false; //boolean to verify Light Sun Piece existence
         for (int row = 0; row < BOARD_ROW; row++) {
             for (int col = 0; col < BOARD_COL; col++) {
                 if (getBoardSquares()[row][col].getPiece() != null &&
@@ -133,7 +143,7 @@ public class Board {
         }
 
         // Check if the Dark Sun piece is present on the board
-        boolean darkSunPresent = false;
+        boolean darkSunPresent = false; //boolean to verify Dark Sun Piece existence
         for (int row = 0; row < BOARD_ROW; row++) {
             for (int col = 0; col < BOARD_COL; col++) {
                 if (getBoardSquares()[row][col].getPiece() != null &&
@@ -154,10 +164,13 @@ public class Board {
         } else if (lightSunPresent && !darkSunPresent) {
             return PieceColor.LIGHT;
         } else {
-            return null;
+            return null; // if both still present continue game
         }
     }
 
+    // Programmers: Iyad Najimi
+    // The saveBoard() is to save the current board by saves the pieces locations,
+    // moves made and current turn into a txt file
     public void saveBoard() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("BoardSave.txt"))) {
             writer.write("Moves made:" + turnCounter + "\n");
@@ -165,6 +178,7 @@ public class Board {
             for (int row = 0; row < boardSquares.length; row++) {
                 for (int col = 0; col < boardSquares[row].length; col++) {
                     if (boardSquares[row][col].isOccupied()) {
+                        //traversing squares to find pieces and record the position of it
                         String pieceName = boardSquares[row][col].getPiece().getPieceName();
                         writer.write(pieceName + " " + boardSquares[row][col].getPiece().getPieceColor() + " at position (" + row + "," + col + ")\n");
                     }
@@ -175,8 +189,11 @@ public class Board {
         }
     }
 
+    // Programmers: Iyad Najimi
+    // The loadBoard() is to load the previous board by loads the positions of pieces
+    // from the txt file
     public void loadBoard(String filePath) {
-        clearBoard();
+        clearBoard(); //clears the board so new pieces can be created
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {

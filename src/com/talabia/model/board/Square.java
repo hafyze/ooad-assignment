@@ -74,11 +74,17 @@ public class Square {
     }
     // End of Setters & Getters
 
+    // Programmers: Iyad Najimi
+    // This method used when load the BoardState.txt file.
+    // Its purpose is to place a new piece in a square
     public void placeNewPiece(String pieceName, PieceColor color) {
         this.piece = createPiece(pieceName, color);
         this.isOccupied = true;
     }
 
+    // Programmers: Iyad Najimi
+    // This method used when load the BoardState.txt file.
+    // Its purpose is to determine which piece type to be created.
     private AbstractPiece createPiece(String pieceName, PieceColor color) {
         switch (pieceName) {
             case "Hour":
