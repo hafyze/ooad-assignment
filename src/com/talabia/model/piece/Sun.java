@@ -4,21 +4,21 @@ import com.talabia.model.board.Square;
 
 import java.util.ArrayList;
 
-// Programmers : Zulhafiq
+// Programmers : Zulhafiz
 // This is the Sun Piece Model in our Talabia Chess Game.
 // It extends the AbstractPiece superclass. The main purpose of this class is to set the
 // unique movement for the Sun Pieces.
 
 public class Sun extends AbstractPiece{
 
-    // Programmers: Zulhafiq
+    // Programmers: Zulhafiz
     // This is the Sun Piece Constructor
     public Sun(PieceColor pieceColor) {
         super("Sun", pieceColor);
         this.pieceImageName = pieceColor.toString() + "_" + pieceName;
     }
 
-    // Programmers: Zulhafiq
+    // Programmers: Zulhafiz
     // To calculate and set the possible moves of the Sun
     @Override
     public void setPossibleMoves(Square currentSquare, Square[][] squares) {
@@ -51,4 +51,6 @@ public class Sun extends AbstractPiece{
     public ArrayList<Square> getPossibleMoves() {
         return possibleMoves;
     }
+    //end of methods
 }
+//End of class

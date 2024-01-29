@@ -5,13 +5,22 @@ import com.talabia.model.board.Square;
 
 import java.util.ArrayList;
 
+// Programmers : Zulhafiz
+// This is the Plus Piece Model in our Talabia Chess Game.
+// It extends the AbstractPiece superclass. The main purpose of this class is to set the
+// unique movement for the Plus Pieces.
+
 public class Plus extends AbstractPiece{
 
+    // Programmers: Zulhafiz
+    // This is the Plus Piece Constructor
     public Plus(PieceColor pieceColor) {
         super("Plus", pieceColor);
         this.pieceImageName = pieceColor.toString() + "_" + pieceName;
     }
 
+    // Programmers: Zulhafiz
+    // To calculate and set the possible moves of the Sun
     @Override
     public void setPossibleMoves(Square currentSquare, Square[][] squares) {
         ArrayList<Square> possibleMoves = new ArrayList<>();
@@ -38,6 +47,7 @@ public class Plus extends AbstractPiece{
         this.possibleMoves = possibleMoves;
     }
 
+    //Method to calculate moves depending on the row direction
     private void calculateMoves(ArrayList<Square> possibleMoves, Square[][] squares,
                                 int currentRow, int currentCol, int rowDirection,
                                 int colDirection, int maxSteps) {
@@ -65,4 +75,6 @@ public class Plus extends AbstractPiece{
     public ArrayList<Square> getPossibleMoves() {
         return this.possibleMoves;
     }
+    //End of methods
 }
+//End of Class
